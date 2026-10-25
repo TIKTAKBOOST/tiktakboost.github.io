@@ -42,10 +42,10 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #121212; }
         ::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 3px; }
-        .box-glow-pink { box-shadow: 0 0 20px rgba(254, 44, 85, 0.3); }
-        .box-glow-cyan { box-shadow: 0 0 20px rgba(37, 244, 238, 0.3); }
         .video-container { scroll-snap-type: y mandatory; }
         .video-card { scroll-snap-align: start; }
+        .box-glow-pink { box-shadow: 0 0 20px rgba(254, 44, 85, 0.3); }
+        .box-glow-cyan { box-shadow: 0 0 20px rgba(37, 244, 238, 0.3); }
     </style>
 </head>
 <body class="bg-black text-white font-sans h-full flex flex-col md:flex-row overflow-hidden selection:bg-boostPink selection:text-white">
@@ -63,29 +63,3 @@
         <div class="flex md:flex-col justify-around md:justify-start w-full gap-1 md:gap-2 overflow-x-auto md:overflow-visible">
             <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition text-boostPink bg-boostPink/10">
                 <i class="fa-solid fa-house text-base"></i> <span class="hidden md:inline">Pour toi</span>
-            </button>
-            <button onclick="switchTab('live')" id="nav-live" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-400 hover:text-white hover:bg-boostCard transition relative">
-                <i class="fa-solid fa-tower-broadcast text-base text-red-500 animate-pulse"></i> <span class="hidden md:inline">Lives Stream</span>
-            </button>
-            <button onclick="switchTab('ai')" id="nav-ai" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-400 hover:text-white hover:bg-boostCard transition">
-                <i class="fa-solid fa-wand-magic-sparkles text-base text-purple-400"></i> <span class="hidden md:inline">Studio IA Gemini</span>
-            </button>
-            <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-400 hover:text-white hover:bg-boostCard transition">
-                <i class="fa-solid fa-brain text-base text-boostCyan"></i> <span class="hidden md:inline">Quiz Boost</span>
-            </button>
-            <button onclick="switchTab('chat')" id="nav-chat" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-400 hover:text-white hover:bg-boostCard transition">
-                <i class="fa-solid fa-comments text-base"></i> <span class="hidden md:inline">Chat Live</span>
-            </button>
-            <button onclick="switchTab('messages')" id="nav-messages" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-400 hover:text-white hover:bg-boostCard transition relative">
-                <i class="fa-solid fa-paper-plane text-base text-blue-400"></i> <span class="hidden md:inline">Messages</span>
-            </button>
-            <button onclick="switchTab('leaderboard')" id="nav-leaderboard" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-400 hover:text-white hover:bg-boostCard transition">
-                <i class="fa-solid fa-trophy text-base text-yellow-400"></i> <span class="hidden md:inline">Classement</span>
-            </button>
-            <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-400 hover:text-white hover:bg-boostCard transition">
-                <i class="fa-solid fa-user text-base"></i> <span class="hidden md:inline">Mon Profil</span>
-            </button>
-        </div>
-
-        <div class="hidden md:flex flex-col gap-2 mt-auto pt-4 border-t border-boostBorder">
-            <button onclick="openLiveModal()" class="w-full py-2.5 rounded-xl font-black text-xs text-white bg-gradient-to-r from-red-600 to-boostPink hover:opacity-90 transition flex
