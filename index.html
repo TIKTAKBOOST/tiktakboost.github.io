@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr" class="h-full bg-black text-white dark">
 <head>
-    <!-- Google AdSense (conservé tel quel) -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1812112806549571"
-     crossorigin="anonymous"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1812112806549571" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIKTAKBOOST - Plateforme Vidéo, Live Stream & Reward Hub</title>
+    <title>TIKTAKBOOST - Plateforme Vidéo, Formations & Récompenses IA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
@@ -53,42 +52,48 @@
 
     <!-- NAVIGATION PRINCIPALE -->
     <nav class="w-full md:w-64 bg-boostDark border-t md:border-t-0 md:border-r border-boostBorder flex md:flex-col justify-between p-3 md:p-5 z-40 shrink-0 order-2 md:order-1">
-        <div class="hidden md:flex flex-col gap-1 mb-6">
+        <div class="hidden md:flex flex-col gap-1 mb-4">
             <div class="flex items-center gap-2">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-boostPink to-boostCyan flex items-center justify-center font-black text-black text-xl shadow-lg">⚡</div>
                 <span class="font-black text-2xl tracking-wider text-white">TIKTAK<span class="text-boostPink">BOOST</span></span>
             </div>
-            <p class="text-[10px] text-gray-400 tracking-widest uppercase mt-1">Video, Live & AI Hub</p>
+            <p class="text-[10px] text-gray-400 tracking-widest uppercase mt-1">Video, Live, Formations & IA</p>
         </div>
 
-        <div class="flex md:flex-col justify-around md:justify-start w-full gap-1 md:gap-2 overflow-x-auto md:overflow-visible">
-            <button onclick="window.switchTab('feed')" id="nav-feed" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition text-boostPink bg-boostPink/10">
+        <div class="flex md:flex-col justify-around md:justify-start w-full gap-1 md:gap-1.5 overflow-x-auto md:overflow-visible">
+            <button onclick="window.switchTab('feed')" id="nav-feed" class="nav-btn flex items-center gap-3 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm transition text-boostPink bg-boostPink/10">
                 <i class="fa-solid fa-house text-base"></i> <span class="hidden md:inline">Pour toi</span>
             </button>
-            <button onclick="window.switchTab('live')" id="nav-live" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
+            <button onclick="window.switchTab('formations')" id="nav-formations" class="nav-btn flex items-center gap-3 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
+                <i class="fa-solid fa-graduation-cap text-base text-boostCyan"></i> <span class="hidden md:inline">Formations</span>
+            </button>
+            <button onclick="window.switchTab('live')" id="nav-live" class="nav-btn flex items-center gap-3 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
                 <i class="fa-solid fa-tower-broadcast text-base text-red-500 animate-pulse"></i> <span class="hidden md:inline">Lives Stream</span>
             </button>
-            <button onclick="window.switchTab('ai')" id="nav-ai" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
+            <button onclick="window.switchTab('ai')" id="nav-ai" class="nav-btn flex items-center gap-3 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
                 <i class="fa-solid fa-wand-magic-sparkles text-base text-purple-400"></i> <span class="hidden md:inline">Studio IA Gemini</span>
             </button>
-            <button onclick="window.switchTab('quiz')" id="nav-quiz" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
+            <button onclick="window.switchTab('quiz')" id="nav-quiz" class="nav-btn flex items-center gap-3 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
                 <i class="fa-solid fa-brain text-base text-boostCyan"></i> <span class="hidden md:inline">Quiz Boost</span>
             </button>
-            <button onclick="window.switchTab('chat')" id="nav-chat" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
+            <button onclick="window.switchTab('chat')" id="nav-chat" class="nav-btn flex items-center gap-3 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
                 <i class="fa-solid fa-comments text-base"></i> <span class="hidden md:inline">Chat Live</span>
             </button>
-            <button onclick="window.switchTab('messages')" id="nav-messages" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
+            <button onclick="window.switchTab('messages')" id="nav-messages" class="nav-btn flex items-center gap-3 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
                 <i class="fa-solid fa-paper-plane text-base text-blue-400"></i> <span class="hidden md:inline">Messages</span>
             </button>
-            <button onclick="window.switchTab('leaderboard')" id="nav-leaderboard" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
+            <button onclick="window.switchTab('leaderboard')" id="nav-leaderboard" class="nav-btn flex items-center gap-3 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
                 <i class="fa-solid fa-trophy text-base text-yellow-400"></i> <span class="hidden md:inline">Classement</span>
             </button>
-            <button onclick="window.switchTab('profile')" id="nav-profile" class="nav-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
+            <button onclick="window.switchTab('profile')" id="nav-profile" class="nav-btn flex items-center gap-3 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm text-gray-300 hover:text-white hover:bg-boostCard transition">
                 <i class="fa-solid fa-user text-base"></i> <span class="hidden md:inline">Mon Profil</span>
+            </button>
+            <button onclick="window.switchTab('legal')" id="nav-legal" class="nav-btn flex items-center gap-3 px-3 py-2 rounded-xl font-bold text-xs sm:text-sm text-gray-400 hover:text-white hover:bg-boostCard transition">
+                <i class="fa-solid fa-shield-halved text-base text-gray-400"></i> <span class="hidden md:inline">Conditions & Légal</span>
             </button>
         </div>
 
-        <div class="hidden md:flex flex-col gap-2 mt-auto pt-4 border-t border-boostBorder">
+        <div class="hidden md:flex flex-col gap-2 mt-auto pt-3 border-t border-boostBorder">
             <button onclick="window.openLiveModal()" class="w-full py-2.5 rounded-xl font-black text-xs text-white bg-gradient-to-r from-red-600 to-boostPink hover:opacity-90 transition flex items-center justify-center gap-2 shadow-lg">
                 <i class="fa-solid fa-video"></i> Lancer un Live
             </button>
@@ -128,10 +133,42 @@
             </button>
         </header>
 
-        <!-- 1. FEED VIDÉO -->
+        <!-- 1. FEED VIDÉO (POUR TOI) -->
         <section id="tab-feed" class="tab-content h-[calc(100vh-60px)] md:h-full overflow-y-auto video-container flex flex-col items-center p-2 sm:p-4 gap-6"></section>
 
-        <!-- 2. STREAMING LIVE DIRECT & WEBCAM -->
+        <!-- 2. FORMATIONS EXPERTES -->
+        <section id="tab-formations" class="tab-content hidden h-full overflow-y-auto p-4 md:p-8 max-w-5xl mx-auto space-y-6">
+            <div class="bg-boostDark border border-boostBorder p-6 rounded-2xl">
+                <h2 class="text-2xl font-black text-white flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-boostCyan"></i> Académie Formations & Algorithmes
+                </h2>
+                <p class="text-xs text-gray-300 mt-2">
+                    Maîtrisez les codes des plateformes leaders. Apprenez le fonctionnement des algorithmes, les critères de rétention, les règles officielles et passez du niveau débutant à l'expertise. Chaque module réussi vous rapporte des Points Boost !
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <button onclick="window.switchFormation('tiktok')" id="form-btn-tiktok" class="p-4 rounded-xl border border-boostPink bg-boostPink/20 text-left transition flex flex-col gap-2">
+                    <div class="flex items-center justify-between"><i class="fa-brands fa-tiktok text-xl text-boostPink"></i><span class="text-[10px] bg-boostPink text-white px-2 py-0.5 rounded-full font-bold">Populaire</span></div>
+                    <span class="font-black text-sm text-white">TikTok Masterclass</span>
+                    <span class="text-[10px] text-gray-300">Du FYP aux Lives & TikTok Shop</span>
+                </button>
+                <button onclick="window.switchFormation('instagram')" id="form-btn-instagram" class="p-4 rounded-xl border border-boostBorder bg-boostCard text-left transition flex flex-col gap-2">
+                    <div class="flex items-center justify-between"><i class="fa-brands fa-instagram text-xl text-pink-400"></i></div>
+                    <span class="font-black text-sm text-white">Instagram Reels Pro</span>
+                    <span class="text-[10px] text-gray-400">Esthétique, Stories & SEO</span>
+                </button>
+                <button onclick="window.switchFormation('youtube')" id="form-btn-youtube" class="p-4 rounded-xl border border-boostBorder bg-boostCard text-left transition flex flex-col gap-2">
+                    <div class="flex items-center justify-between"><i class="fa-brands fa-youtube text-xl text-red-500"></i></div>
+                    <span class="font-black text-sm text-white">YouTube Shorts & Long</span>
+                    <span class="text-[10px] text-gray-400">Taux de clic & Rétention</span>
+                </button>
+            </div>
+
+            <div id="formation-content-box" class="bg-boostDark border border-boostBorder p-6 rounded-2xl space-y-6"></div>
+        </section>
+
+        <!-- 3. STREAMING LIVE DIRECT & WEBCAM -->
         <section id="tab-live" class="tab-content hidden h-full overflow-y-auto p-4 md:p-6 max-w-5xl mx-auto">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4 bg-gradient-to-r from-red-950/40 to-boostDark border border-red-500/30 p-6 rounded-2xl mb-6">
                 <div>
@@ -147,7 +184,6 @@
                 </button>
             </div>
 
-            <!-- Espace du Stream Actif -->
             <div id="active-stream-container" class="hidden bg-boostDark border border-boostBorder rounded-2xl p-4 mb-6">
                 <div class="flex items-center justify-between mb-3">
                     <div class="flex items-center gap-2">
@@ -176,7 +212,7 @@
             <div id="live-streams-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </section>
 
-        <!-- 3. STUDIO IA GEMINI -->
+        <!-- 4. STUDIO IA GEMINI -->
         <section id="tab-ai" class="tab-content hidden h-full overflow-y-auto p-4 md:p-8 max-w-4xl mx-auto">
             <div class="bg-boostDark border border-purple-500/30 p-6 rounded-2xl mb-6 shadow-xl">
                 <div class="flex items-center gap-3 mb-2">
@@ -191,7 +227,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Générateur de Script -->
                 <div class="bg-boostDark border border-boostBorder p-5 rounded-2xl space-y-4">
                     <h3 class="font-black text-sm text-boostCyan flex items-center gap-2">
                         <i class="fa-solid fa-lightbulb"></i> Générateur de Script & Accroche Virale
@@ -214,7 +249,6 @@
                     <div id="ai-script-output" class="hidden p-4 bg-black/60 border border-purple-500/30 rounded-xl text-xs space-y-2 text-gray-200 whitespace-pre-line max-h-60 overflow-y-auto"></div>
                 </div>
 
-                <!-- Chatbot Conseils Croissance -->
                 <div class="bg-boostDark border border-boostBorder p-5 rounded-2xl flex flex-col h-[400px]">
                     <h3 class="font-black text-sm text-purple-400 mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-robot"></i> Chatbot Conseils Croissance Gemini
@@ -232,16 +266,16 @@
             </div>
         </section>
 
-        <!-- 4. QUIZ MODULE -->
+        <!-- 5. QUIZ MODULE -->
         <section id="tab-quiz" class="tab-content hidden h-full overflow-y-auto p-4 md:p-8 max-w-4xl mx-auto">
             <div class="bg-boostDark border border-boostBorder p-6 rounded-2xl mb-6 shadow-xl">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div>
                         <h2 class="text-2xl font-black flex items-center gap-2">
-                            <i class="fa-solid fa-brain text-boostCyan"></i> QUIZ ALGORITHMES & CRÉATEURS
+                            <i class="fa-solid fa-brain text-boostCyan"></i> QUIZ ALGORITHMES & FORMATIONS
                         </h2>
                         <p class="text-xs text-gray-400 mt-1">
-                            Répondez aux questions sur TikTok, YouTube et Instagram pour tester vos connaissances et gagner des points !
+                            Répondez aux questions liées à nos formations pour tester vos connaissances et gagner des points Boost !
                         </p>
                     </div>
                     <div class="bg-black/60 px-4 py-3 rounded-xl border border-boostBorder text-center">
@@ -255,7 +289,6 @@
                 </div>
             </div>
 
-            <!-- Plateformes -->
             <div class="flex gap-2 mb-6 overflow-x-auto pb-2">
                 <button onclick="window.selectPlatform('tiktok')" id="btn-quiz-tiktok" class="quiz-plat-btn flex-1 min-w-[110px] py-3 rounded-xl border border-boostPink bg-boostPink/20 text-white font-extrabold text-xs flex items-center justify-center gap-2">
                     <i class="fa-brands fa-tiktok text-base"></i> TikTok
@@ -268,11 +301,10 @@
                 </button>
             </div>
 
-            <!-- Conteneur de Question -->
             <div id="quiz-card" class="bg-boostDark border border-boostBorder p-6 rounded-2xl relative"></div>
         </section>
 
-        <!-- 5. LIVE CHAT COMMUNAUTAIRE -->
+        <!-- 6. LIVE CHAT COMMUNAUTAIRE -->
         <section id="tab-chat" class="tab-content hidden h-[calc(100vh-60px)] md:h-full flex flex-col max-w-4xl mx-auto p-4">
             <div class="flex items-center justify-between p-4 bg-boostDark border border-boostBorder rounded-t-2xl">
                 <div class="flex items-center gap-3">
@@ -292,7 +324,7 @@
             </form>
         </section>
 
-        <!-- 6. MESSAGERIE PRIVÉE (DMs) ET APPELS VIDÉO EN DIRECT -->
+        <!-- 7. MESSAGERIE PRIVÉE (DMs) ET APPELS -->
         <section id="tab-messages" class="tab-content hidden h-[calc(100vh-60px)] md:h-full flex max-w-5xl mx-auto p-2 sm:p-4 gap-4">
             <div class="w-1/3 bg-boostDark border border-boostBorder rounded-2xl flex flex-col overflow-hidden">
                 <div class="p-4 border-b border-boostBorder font-black text-sm text-white">Discussions Privées</div>
@@ -318,12 +350,12 @@
             </div>
         </section>
 
-        <!-- 7. CLASSEMENT -->
+        <!-- 8. CLASSEMENT -->
         <section id="tab-leaderboard" class="tab-content hidden h-full overflow-y-auto p-4 md:p-8 max-w-4xl mx-auto">
             <div class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 bg-boostDark border border-boostBorder p-6 rounded-2xl">
                 <div>
                     <h2 class="text-2xl font-black flex items-center gap-2"><i class="fa-solid fa-trophy text-yellow-400"></i> TOP 3 DU MOIS</h2>
-                    <p class="text-xs text-gray-400 mt-1">Classement d'exemple. Il deviendra réel avec les comptes sécurisés.</p>
+                    <p class="text-xs text-gray-400 mt-1">Classement dynamique des créateurs les plus actifs et formés sur la plateforme.</p>
                 </div>
                 <div class="text-center md:text-right bg-black/60 p-3 rounded-xl border border-boostBorder">
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Remise à zéro dans :</p>
@@ -336,7 +368,7 @@
             </div>
         </section>
 
-        <!-- 8. PROFIL -->
+        <!-- 9. PROFIL -->
         <section id="tab-profile" class="tab-content hidden h-full overflow-y-auto p-4 md:p-8 max-w-4xl mx-auto">
             <div class="bg-boostDark border border-boostBorder rounded-2xl p-6 mb-6">
                 <div class="flex flex-col sm:flex-row items-center gap-6">
@@ -364,756 +396,4 @@
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 w-full sm:w-auto">
-                        <button onclick="window.openAuthModal()" class="px-5 py-2.5 bg-boostPink hover:bg-pink-600 rounded-xl font-bold text-xs transition">
-                            <i class="fa-solid fa-right-to-bracket mr-1"></i> Connexion / Inscription
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <h3 class="font-extrabold text-lg mb-4">Mes Vidéos Intégrées</h3>
-            <div id="user-videos-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-        </section>
-    </main>
-
-    <!-- MODAL: APPEL VIDÉO DIRECT (WEBRTC) -->
-    <div id="video-call-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col items-center justify-center p-4">
-        <div class="bg-boostDark border border-boostBorder rounded-2xl w-full max-w-2xl p-4 relative flex flex-col items-center">
-            <button onclick="window.endVideoCall()" class="absolute top-4 right-4 text-red-500 hover:text-red-400 text-2xl font-bold z-10"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-lg font-black text-white mb-2 flex items-center gap-2">
-                <i class="fa-solid fa-video text-green-500 animate-pulse"></i> Appel Vidéo en direct avec <span id="call-target-name" class="text-boostCyan">@Membre</span>
-            </h3>
-            <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden border border-boostBorder flex items-center justify-center my-3">
-                <video id="remote-video" autoplay playsinline class="w-full h-full object-cover"></video>
-                <video id="local-video" autoplay playsinline muted class="absolute bottom-3 right-3 w-32 h-24 bg-gray-900 rounded-lg border border-boostCyan object-cover shadow-2xl"></video>
-            </div>
-            <div class="flex items-center gap-4 mt-2">
-                <button onclick="window.toggleMuteAudio()" id="call-mute-btn" class="w-12 h-12 rounded-full bg-boostCard border border-boostBorder flex items-center justify-center text-white hover:bg-boostBorder">
-                    <i class="fa-solid fa-microphone"></i>
-                </button>
-                <button onclick="window.endVideoCall()" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-black text-xs rounded-full shadow-lg">
-                    RACCROCHER
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: DÉMARRER UN LIVE STREAM -->
-    <div id="live-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-boostDark border border-boostBorder rounded-2xl w-full max-w-md p-6 relative">
-            <button onclick="window.closeLiveModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-2xl font-black mb-1 flex items-center gap-2 text-white">
-                <i class="fa-solid fa-tower-broadcast text-red-500"></i> Studio Live Direct
-            </h3>
-            <p class="text-xs text-gray-400 mb-6">Diffusez directement votre webcam sur le site TIKTAKBOOST.</p>
-            <form onsubmit="window.startCamLiveStream(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-300 mb-1">Titre de votre Live</label>
-                    <input type="text" id="live-title-input" required maxlength="80" placeholder="Ex: Session Q&A et création de vidéos !" class="w-full bg-black border border-boostBorder rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-red-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-300 mb-1">Catégorie</label>
-                    <select id="live-category-input" class="w-full bg-black border border-boostBorder rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 text-gray-200">
-                        <option value="Discussion">Discussion / Chat</option>
-                        <option value="Conseils Créateur">Conseils Créateur / Stratégie</option>
-                        <option value="Gaming">Gaming & Divertissement</option>
-                    </select>
-                </div>
-                <button type="submit" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-video"></i> ACTIVER LA CAMÉRA & DIFFUSER
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: INSCRIPTION / CONNEXION SOCIALE -->
-    <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-boostDark border border-boostBorder rounded-2xl w-full max-w-md p-6 relative">
-            <button onclick="window.closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-2xl font-black mb-1 text-center">Connexion <span class="text-boostPink">TIKTAKBOOST</span></h3>
-            <p class="text-xs text-gray-400 mb-6 text-center">Choisis ton réseau pour te connecter instantanément.</p>
-
-            <div class="space-y-3">
-                <button onclick="window.socialLogin('TikTok')" class="w-full py-3 bg-black hover:bg-gray-900 border border-boostBorder rounded-xl font-bold text-sm text-white flex items-center justify-center gap-3 transition shadow-md">
-                    <i class="fa-brands fa-tiktok text-xl text-boostCyan"></i> Continuer avec TikTok
-                </button>
-                <button onclick="window.socialLogin('YouTube')" class="w-full py-3 bg-black hover:bg-gray-900 border border-boostBorder rounded-xl font-bold text-sm text-white flex items-center justify-center gap-3 transition shadow-md">
-                    <i class="fa-brands fa-youtube text-xl text-red-500"></i> Continuer avec YouTube (Google)
-                </button>
-                <button onclick="window.socialLogin('Facebook')" class="w-full py-3 bg-black hover:bg-gray-900 border border-boostBorder rounded-xl font-bold text-sm text-white flex items-center justify-center gap-3 transition shadow-md">
-                    <i class="fa-brands fa-facebook text-xl text-blue-500"></i> Continuer avec Facebook
-                </button>
-            </div>
-            <p class="text-[10px] text-gray-500 text-center mt-6">En continuant, tu acceptes les règles de la communauté TIKTAKBOOST.</p>
-        </div>
-    </div>
-
-    <!-- MODAL: AJOUTER UN LIEN DE VIDÉO -->
-    <div id="upload-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-boostDark border border-boostBorder rounded-2xl w-full max-w-md p-6 relative">
-            <button onclick="window.closeUploadModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-2xl font-black mb-1">Ajouter une vidéo <span class="text-boostCyan">TIKTAKBOOST</span></h3>
-            <p class="text-xs text-gray-400 mb-6">Colle uniquement le lien de ta vidéo YouTube, TikTok ou Instagram.</p>
-            <form onsubmit="window.handleVideoEmbed(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-300 mb-1">Titre de la publication</label>
-                    <input type="text" id="video-title" required maxlength="80" placeholder="Ex: Mon nouveau vlog #TIKTAKBOOST" class="w-full bg-black border border-boostBorder rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-boostPink">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-300 mb-1">Lien de la Vidéo (URL YouTube, TikTok ou Instagram)</label>
-                    <input type="url" id="video-url" required placeholder="https://www.youtube.com/shorts/... ou tiktok.com/..." class="w-full bg-black border border-boostBorder rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-boostCyan">
-                    <p class="text-[10px] text-gray-500 mt-1">Aucun fichier n'est stocké sur le serveur, seul le lien d'intégration est utilisé.</p>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-300 mb-1">Description / Hashtags</label>
-                    <textarea id="video-desc" rows="2" maxlength="200" placeholder="Description..." class="w-full bg-black border border-boostBorder rounded-xl p-3 text-sm focus:outline-none focus:border-boostPink"></textarea>
-                </div>
-                <button type="submit" class="w-full py-3 bg-boostCyan hover:bg-cyan-300 text-black font-black text-sm rounded-xl transition shadow-lg box-glow-cyan">Intégrer la Vidéo</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- SCRIPT APPLICATION GLOBAL -->
-    <script>
-        function esc(str) {
-            return String(str ?? '').replace(/[&<>"']/g, c => ({
-                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-            }[c]));
-        }
-
-        function load(key, fallback) {
-            try {
-                const raw = localStorage.getItem(key);
-                return raw ? JSON.parse(raw) : fallback;
-            } catch (e) {
-                return fallback;
-            }
-        }
-        function save(key, value) {
-            try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { }
-        }
-
-        const AVATAR = seed => `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(seed)}`;
-
-        let currentUser = load('tiktakboost_user', {
-            username: 'Invité', provider: '', isLoggedIn: false, points: 0, avatar: AVATAR('Guest')
-        });
-
-        const defaultVideos = [
-            {
-                id: 1, author: '@Alex_Boost', title: 'Démo Shorts YouTube ! 🔥',
-                desc: 'Regardez cette vidéo incroyable #YouTube',
-                url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-                type: 'youtube', likes: 1240, comments: 89, avatar: AVATAR('Alex')
-            },
-            {
-                id: 2, author: '@Sarah_Live', title: 'Tendance TikTok 🎯',
-                desc: 'Le récap du 25 du mois ! #TikTok',
-                url: 'https://www.tiktok.com/embed/v2/7234567890',
-                type: 'tiktok', likes: 3420, comments: 210, avatar: AVATAR('Sarah')
-            }
-        ];
-
-        let videoFeed = load('tiktakboost_videos', defaultVideos);
-        let chatMessages = load('tiktakboost_chat', [
-            { author: '@Alex_Boost', text: 'Bienvenue sur TIKTAKBOOST ! ⚡', time: '14:20' },
-            { author: '@Sarah_Live', text: "Posez vos questions à @Gemini dans le chat pour avoir des conseils !", time: '14:22' }
-        ]);
-
-        let liveStreams = load('tiktakboost_lives', [
-            { id: 101, author: '@Alex_Boost', title: '🔴 Review de vos chaînes & conseils TikTok !', category: 'Conseils Créateur', viewers: 312, avatar: AVATAR('Alex') },
-            { id: 102, author: '@Sarah_Live', title: '🔴 Q&A Réponse à vos questions en direct', category: 'Discussion', viewers: 189, avatar: AVATAR('Sarah') }
-        ]);
-
-        const donators = [
-            { name: '@Alex_Boost', points: '18 500 pts', avatar: AVATAR('Alex'), badge: '🥇' },
-            { name: '@Sarah_Live', points: '14 200 pts', avatar: AVATAR('Sarah'), badge: '🥈' },
-            { name: '@Gaming_Pro', points: '9 800 pts', avatar: AVATAR('Gaming'), badge: '🥉' }
-        ];
-
-        let activeDMUser = null;
-        let dmMessages = load('tiktakboost_dms', {
-            '@Alex_Boost': [{ sender: '@Alex_Boost', text: 'Salut ! Bienvenue sur mon profil.', time: '12:00' }]
-        });
-
-        // Navigation
-        window.switchTab = function(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-boostPink', 'bg-boostPink/10');
-                btn.classList.add('text-gray-300');
-            });
-            const target = document.getElementById(`tab-${tabName}`);
-            if (target) target.classList.remove('hidden');
-
-            const activeBtn = document.getElementById(`nav-${tabName}`);
-            if (activeBtn) {
-                activeBtn.classList.add('text-boostPink', 'bg-boostPink/10');
-                activeBtn.classList.remove('text-gray-300');
-            }
-            if (tabName === 'feed') renderFeed();
-            if (tabName === 'profile') updateProfileUI();
-            if (tabName === 'quiz') renderQuiz();
-            if (tabName === 'live') renderLiveStreams();
-            if (tabName === 'messages') renderDMSidebar();
-            if (tabName === 'leaderboard') renderLeaderboard();
-            if (tabName === 'chat') renderChat();
-        };
-
-        // Studio IA Gemini Simulé/Intégré
-        window.generateAIScript = async function() {
-            const topic = document.getElementById('ai-topic-input').value.trim();
-            const platform = document.getElementById('ai-platform-select').value;
-            const output = document.getElementById('ai-script-output');
-            const btn = document.getElementById('ai-generate-btn');
-
-            if (!topic) { alert("Veuillez entrer un sujet pour générer le script !"); return; }
-
-            output.classList.remove('hidden');
-            output.innerText = "⚡ Gemini analyse votre sujet et rédige votre concept...";
-            btn.disabled = true;
-
-            setTimeout(() => {
-                output.innerText = `🎬 CONCEPT SCRIPT VIRAL (${platform})\n\n📌 Hook (0-3s) : "Arrêtez de faire cette erreur sur ${topic} !"\n\n📝 Script :\n- Scène 1 : Montrez immédiatement le résultat final.\n- Scène 2 : Expliquez l'astuce en 2 étapes rapides.\n- Scène 3 : Call To Action : "Abonne-toi pour la partie 2 !"\n\n🔥 Hashtags : #${platform.replace(/\s+/g,'')} #ContentCreator #Viral #Boost`;
-                btn.disabled = false;
-            }, 1000);
-        };
-
-        window.sendAIChatMessage = function(e) {
-            e.preventDefault();
-            const input = document.getElementById('ai-chat-input');
-            const chatBox = document.getElementById('ai-chat-box');
-            const prompt = input.value.trim();
-            if (!prompt) return;
-
-            const userDiv = document.createElement('div');
-            userDiv.className = "p-2.5 bg-boostCard border border-boostBorder rounded-xl text-white ml-6 text-right";
-            userDiv.innerText = prompt;
-            chatBox.appendChild(userDiv);
-            input.value = '';
-
-            const aiDiv = document.createElement('div');
-            aiDiv.className = "p-2.5 bg-purple-950/40 border border-purple-500/20 rounded-xl text-purple-200 mr-6";
-            aiDiv.innerText = "Gemini réfléchit...";
-            chatBox.appendChild(aiDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            setTimeout(() => {
-                aiDiv.innerText = `💡 Pour répondre à "${prompt}" : Concentrez-vous sur la rétention dès les 3 premières secondes et incitez au partage en DM pour maximiser l'algorithme !`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 800);
-        };
-
-        // Lives & Webcam WebRTC
-        let localMediaStream = null;
-        window.openLiveModal = () => document.getElementById('live-modal')?.classList.remove('hidden');
-        window.closeLiveModal = () => document.getElementById('live-modal')?.classList.add('hidden');
-
-        window.startCamLiveStream = async function(e) {
-            e.preventDefault();
-            const title = document.getElementById('live-title-input').value.trim();
-            const category = document.getElementById('live-category-input').value;
-
-            try {
-                localMediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                window.closeLiveModal();
-                window.switchTab('live');
-
-                const container = document.getElementById('active-stream-container');
-                const video = document.getElementById('live-stream-video');
-                container.classList.remove('hidden');
-                video.srcObject = localMediaStream;
-
-                document.getElementById('active-stream-title').innerText = title;
-                document.getElementById('live-stream-author').innerText = currentUser.username;
-                document.getElementById('live-stream-avatar').src = currentUser.avatar;
-
-                liveStreams.unshift({
-                    id: Date.now(),
-                    author: currentUser.username,
-                    title: `🔴 ${title}`,
-                    category: category,
-                    viewers: 1,
-                    avatar: currentUser.avatar
-                });
-                renderLiveStreams();
-            } catch (err) {
-                alert("Impossible d'accéder à la caméra ou au micro pour diffuser en direct.");
-            }
-        };
-
-        window.stopCurrentLiveStream = function() {
-            if (localMediaStream) {
-                localMediaStream.getTracks().forEach(track => track.stop());
-                localMediaStream = null;
-            }
-            document.getElementById('active-stream-container').classList.add('hidden');
-        };
-
-        function renderLiveStreams() {
-            const grid = document.getElementById('live-streams-grid');
-            if (!grid) return;
-            grid.innerHTML = '';
-
-            liveStreams.forEach(stream => {
-                const card = document.createElement('div');
-                card.className = "bg-boostDark border border-boostBorder rounded-xl overflow-hidden hover:border-red-500/50 transition flex flex-col";
-                card.innerHTML = `
-                    <div class="relative aspect-video bg-black flex items-center justify-center">
-                        <i class="fa-solid fa-tower-broadcast text-4xl text-red-600/40"></i>
-                        <span class="absolute top-2 left-2 bg-red-600 text-white text-[9px] font-black px-2 py-0.5 rounded-full animate-pulse">EN DIRECT</span>
-                        <span class="absolute bottom-2 right-2 bg-black/80 text-boostCyan text-[10px] px-2 py-0.5 rounded-md font-bold flex items-center gap-1">
-                            <i class="fa-solid fa-eye"></i> ${stream.viewers}
-                        </span>
-                    </div>
-                    <div class="p-3 space-y-2 flex-1 flex flex-col justify-between">
-                        <div>
-                            <p class="font-extrabold text-xs text-white line-clamp-1">${esc(stream.title)}</p>
-                            <span class="text-[9px] text-gray-400 bg-boostCard px-2 py-0.5 rounded border border-boostBorder mt-1 inline-block">${esc(stream.category)}</span>
-                        </div>
-                        <div class="flex items-center justify-between pt-2 border-t border-boostBorder/50">
-                            <div class="flex items-center gap-2">
-                                <img src="${esc(stream.avatar)}" class="w-6 h-6 rounded-full">
-                                <span class="text-xs font-bold text-gray-300">${esc(stream.author)}</span>
-                            </div>
-                            <button onclick="window.openDirectMessage('${stream.author}')" class="px-2.5 py-1 bg-boostCard hover:bg-boostBorder text-xs text-white rounded-lg border border-boostBorder">
-                                Discuter
-                            </button>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // Appels Vidéo Inter-membres
-        window.startDirectVideoCall = async function() {
-            if (!activeDMUser) return;
-            document.getElementById('call-target-name').innerText = activeDMUser;
-            document.getElementById('video-call-modal').classList.remove('hidden');
-
-            try {
-                localMediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                document.getElementById('local-video').srcObject = localMediaStream;
-                document.getElementById('remote-video').srcObject = localMediaStream;
-            } catch (err) {
-                alert("Erreur d'accès à la caméra pour l'appel vidéo.");
-            }
-        };
-
-        window.endVideoCall = function() {
-            if (localMediaStream) {
-                localMediaStream.getTracks().forEach(track => track.stop());
-                localMediaStream = null;
-            }
-            document.getElementById('video-call-modal').classList.add('hidden');
-        };
-
-        window.toggleMuteAudio = function() {
-            if (localMediaStream) {
-                const audioTrack = localMediaStream.getAudioTracks()[0];
-                if (audioTrack) {
-                    audioTrack.enabled = !audioTrack.enabled;
-                    document.getElementById('call-mute-btn').classList.toggle('text-red-500');
-                }
-            }
-        };
-
-        // Quiz
-        const quizData = {
-            tiktok: [
-                {
-                    q: "Quel facteur est le plus important pour qu'une vidéo devienne virale sur TikTok ?",
-                    options: [
-                        "Le taux de rétention (combien de temps les gens regardent la vidéo)",
-                        "Le nombre de hashtags sous la publication",
-                        "L'heure précise de publication dans la journée",
-                        "La qualité de la caméra HD"
-                    ],
-                    correct: 0,
-                    explanation: "L'algorithme TikTok privilégie avant tout le temps de visionnage et le taux de rétention complet."
-                }
-            ],
-            youtube: [
-                {
-                    q: "Sur YouTube Shorts, quel est l'élément le plus déterminant pour la recommandation ?",
-                    options: [
-                        "Le titre en majuscules",
-                        "Le ratio 'Vues vs Ignorées' (Viewed vs Swiped Away)",
-                        "L'utilisation d'une musique très ancienne",
-                        "Le nombre de liens dans la description"
-                    ],
-                    correct: 1,
-                    explanation: "YouTube mesure prioritairement combien d'utilisateurs décident de regarder votre Short au lieu de scroller."
-                }
-            ],
-            instagram: [
-                {
-                    q: "Quel est l'objectif principal du format 'Reels' sur Instagram ?",
-                    options: [
-                        "Remplacer la messagerie privée",
-                        "Atteindre des comptes qui ne vous suivent pas encore",
-                        "Envoyer des e-mails aux abonnés",
-                        "Créer un album photo privé"
-                    ],
-                    correct: 1,
-                    explanation: "Les Reels sont le principal moteur de découverte d'Instagram pour toucher une nouvelle audience."
-                }
-            ]
-        };
-
-        let currentPlatform = 'tiktok';
-        let quizState = load('tiktakboost_quiz_state', { weekStart: 1, answeredThisWeek: 0 });
-
-        window.selectPlatform = function(plat) {
-            currentPlatform = plat;
-            document.querySelectorAll('.quiz-plat-btn').forEach(btn => {
-                btn.classList.remove('border-boostPink', 'bg-boostPink/20', 'text-white');
-                btn.classList.add('border-boostBorder', 'bg-boostCard', 'text-gray-300');
-            });
-            const active = document.getElementById(`btn-quiz-${plat}`);
-            if (active) {
-                active.classList.add('border-boostPink', 'bg-boostPink/20', 'text-white');
-                active.classList.remove('border-boostBorder', 'bg-boostCard', 'text-gray-300');
-            }
-            renderQuiz();
-        };
-
-        function renderQuiz() {
-            const card = document.getElementById('quiz-card');
-            const counter = document.getElementById('quiz-weekly-count');
-            if (counter) counter.innerText = `${quizState.answeredThisWeek} / 3`;
-            if (!card) return;
-
-            if (quizState.answeredThisWeek >= 3) {
-                card.innerHTML = `<div class="text-center py-8 space-y-3"><div class="text-4xl">🎉</div><h3 class="text-xl font-extrabold text-boostCyan">Quiz hebdomadaire terminé !</h3><p class="text-xs text-gray-400">Revenez la semaine prochaine pour plus de points.</p></div>`;
-                return;
-            }
-
-            const questions = quizData[currentPlatform] || quizData['tiktok'];
-            const qIndex = quizState.answeredThisWeek % questions.length;
-            const qData = questions[qIndex];
-
-            card.innerHTML = `
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-boostPink uppercase tracking-wider">Question ${quizState.answeredThisWeek + 1} sur 3</span>
-                        <span class="text-xs bg-boostPink/20 text-boostPink border border-boostPink/40 px-2.5 py-1 rounded-full font-extrabold">+100 PTS</span>
-                    </div>
-                    <h3 class="text-base sm:text-lg font-black text-white">${esc(qData.q)}</h3>
-                    <div class="space-y-2 mt-4" id="quiz-options">
-                        ${qData.options.map((opt, idx) => `
-                            <button onclick="window.submitAnswer(${qIndex}, ${idx})" class="w-full text-left p-3.5 rounded-xl border border-boostBorder bg-black hover:border-boostCyan transition font-medium text-xs sm:text-sm flex items-center justify-between group">
-                                <span>${esc(opt)}</span>
-                                <i class="fa-solid fa-chevron-right text-gray-400 group-hover:text-boostCyan transition"></i>
-                            </button>
-                        `).join('')}
-                    </div>
-                    <div id="quiz-feedback" class="hidden mt-4 p-4 rounded-xl text-xs space-y-2"></div>
-                </div>
-            `;
-        }
-
-        window.submitAnswer = function(qIndex, selectedIdx) {
-            const questions = quizData[currentPlatform] || quizData['tiktok'];
-            const qData = questions[qIndex];
-            const feedback = document.getElementById('quiz-feedback');
-            const optionsContainer = document.getElementById('quiz-options');
-            if (!feedback || !optionsContainer) return;
-
-            optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
-            const isCorrect = selectedIdx === qData.correct;
-
-            if (isCorrect) {
-                currentUser.points += 100;
-                saveUser();
-                feedback.className = "mt-4 p-4 rounded-xl text-xs bg-green-950/60 border border-green-500/50 text-green-200 block space-y-2";
-                feedback.innerHTML = `<div class="font-extrabold text-green-400 text-sm"><i class="fa-solid fa-circle-check"></i> Bonne réponse ! (+100 pts)</div><p>${esc(qData.explanation)}</p><button onclick="renderQuiz()" class="mt-2 px-4 py-2 bg-green-500 text-black font-extrabold rounded-lg text-xs">Continuer</button>`;
-            } else {
-                feedback.className = "mt-4 p-4 rounded-xl text-xs bg-red-950/60 border border-red-500/50 text-red-200 block space-y-2";
-                feedback.innerHTML = `<div class="font-extrabold text-red-400 text-sm"><i class="fa-solid fa-circle-xmark"></i> Mauvaise réponse</div><p>${esc(qData.explanation)}</p><button onclick="renderQuiz()" class="mt-2 px-4 py-2 bg-boostCard text-white font-extrabold rounded-lg text-xs border border-boostBorder">Suivant</button>`;
-            }
-            quizState.answeredThisWeek++;
-            save('tiktakboost_quiz_state', quizState);
-        };
-
-        // Feed Vidéo
-        function renderFeed() {
-            const container = document.getElementById('tab-feed');
-            if (!container) return;
-            const scroll = container.scrollTop;
-            container.innerHTML = '';
-
-            videoFeed.forEach(video => {
-                const card = document.createElement('div');
-                card.className = 'video-card relative w-full max-w-sm h-[80vh] bg-boostDark rounded-2xl overflow-hidden border border-boostBorder flex flex-col justify-end p-4 shadow-2xl shrink-0';
-                
-                let mediaElement = `<iframe src="${esc(video.url)}" class="absolute inset-0 w-full h-full object-cover border-0" allowfullscreen></iframe>`;
-
-                card.innerHTML = `
-                    ${mediaElement}
-                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90 pointer-events-none"></div>
-                    <div class="absolute right-3 bottom-20 flex flex-col items-center gap-5 z-20">
-                        <button onclick="window.likeVideo(${Number(video.id)})" class="flex flex-col items-center group" aria-label="J'aime">
-                            <div class="w-11 h-11 rounded-full bg-black/60 border border-boostBorder flex items-center justify-center text-white group-hover:text-boostPink transition">
-                                <i class="fa-solid fa-heart text-xl"></i>
-                            </div>
-                            <span class="text-xs font-bold mt-1 text-white">${Number(video.likes)}</span>
-                        </button>
-                        <button onclick="window.openDirectMessage('${esc(video.author)}')" class="flex flex-col items-center group" aria-label="Message Direct">
-                            <div class="w-11 h-11 rounded-full bg-black/60 border border-boostBorder flex items-center justify-center text-white group-hover:text-blue-400 transition">
-                                <i class="fa-solid fa-paper-plane text-xl"></i>
-                            </div>
-                            <span class="text-xs font-bold mt-1 text-white">DM</span>
-                        </button>
-                    </div>
-                    <div class="relative z-20 max-w-[80%] space-y-2 pointer-events-auto">
-                        <div class="flex items-center gap-2">
-                            <img src="${esc(video.avatar)}" alt="" class="w-8 h-8 rounded-full border border-boostPink">
-                            <span class="font-extrabold text-sm text-white">${esc(video.author)}</span>
-                        </div>
-                        <p class="font-bold text-sm text-white line-clamp-1">${esc(video.title)}</p>
-                        <p class="text-xs text-gray-300 line-clamp-2">${esc(video.desc)}</p>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-            container.scrollTop = scroll;
-        }
-
-        window.likeVideo = function(id) {
-            const vid = videoFeed.find(v => v.id === id);
-            if (vid) {
-                vid.likes++;
-                save('tiktakboost_videos', videoFeed);
-                renderFeed();
-            }
-        };
-
-        // Chat & DMs
-        function renderChat() {
-            const container = document.getElementById('chat-messages');
-            if (!container) return;
-            container.innerHTML = '';
-            chatMessages.forEach(msg => {
-                const div = document.createElement('div');
-                div.className = 'flex flex-col bg-boostDark p-3 rounded-xl border border-boostBorder/50 max-w-md';
-                div.innerHTML = `
-                    <div class="flex items-center justify-between gap-2 mb-1">
-                        <span class="font-bold text-xs ${msg.author === '@Gemini' ? 'text-purple-400 font-extrabold' : 'text-boostCyan'}">${esc(msg.author)}</span>
-                        <span class="text-[10px] text-gray-400">${esc(msg.time)}</span>
-                    </div>
-                    <p class="text-xs text-gray-200 break-words">${esc(msg.text)}</p>
-                `;
-                container.appendChild(div);
-            });
-            container.scrollTop = container.scrollHeight;
-        }
-
-        window.sendChatMessage = function(e) {
-            e.preventDefault();
-            const input = document.getElementById('chat-input');
-            if (!input || !input.value.trim()) return;
-            const now = new Date();
-            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-            const text = input.value.trim();
-
-            chatMessages.push({ author: currentUser.username, text: text, time: timeStr });
-            input.value = '';
-            renderChat();
-
-            if (text.includes('@Gemini')) {
-                setTimeout(() => {
-                    chatMessages.push({ author: '@Gemini', text: `💡 Conseil IA : Travaillez votre accroche visuelle !`, time: timeStr });
-                    save('tiktakboost_chat', chatMessages);
-                    renderChat();
-                }, 800);
-            } else {
-                save('tiktakboost_chat', chatMessages);
-            }
-        };
-
-        window.openDirectMessage = function(username) {
-            activeDMUser = username;
-            if (!dmMessages[username]) dmMessages[username] = [];
-            window.switchTab('messages');
-            renderDMSidebar();
-            selectDMUser(username);
-        };
-
-        function renderDMSidebar() {
-            const list = document.getElementById('dm-users-list');
-            if (!list) return;
-            list.innerHTML = '';
-
-            const users = Array.from(new Set(['@Alex_Boost', '@Sarah_Live', ...Object.keys(dmMessages)]));
-            users.forEach(u => {
-                const div = document.createElement('div');
-                div.className = `p-3 flex items-center gap-3 cursor-pointer hover:bg-boostCard transition ${activeDMUser === u ? 'bg-boostCard border-l-4 border-blue-500' : ''}`;
-                div.onclick = () => selectDMUser(u);
-                div.innerHTML = `
-                    <img src="${AVATAR(u)}" class="w-8 h-8 rounded-full border border-boostBorder">
-                    <span class="font-bold text-xs text-white truncate">${esc(u)}</span>
-                `;
-                list.appendChild(div);
-            });
-        }
-
-        function selectDMUser(username) {
-            activeDMUser = username;
-            renderDMSidebar();
-            document.getElementById('dm-target-name').innerText = username;
-            document.getElementById('dm-target-avatar').src = AVATAR(username);
-            document.getElementById('dm-video-call-btn').classList.remove('hidden');
-            document.getElementById('dm-form').classList.remove('hidden');
-            renderDMMessages();
-        }
-
-        function renderDMMessages() {
-            const container = document.getElementById('dm-messages-container');
-            if (!container || !activeDMUser) return;
-            container.innerHTML = '';
-            const msgs = dmMessages[activeDMUser] || [];
-            msgs.forEach(m => {
-                const div = document.createElement('div');
-                const isMe = m.sender === currentUser.username;
-                div.className = `p-2.5 rounded-xl text-xs max-w-[80%] ${isMe ? 'bg-blue-600 text-white ml-auto' : 'bg-boostCard text-gray-200 border border-boostBorder'}`;
-                div.innerText = m.text;
-                container.appendChild(div);
-            });
-            container.scrollTop = container.scrollHeight;
-        }
-
-        window.sendDirectMessage = function(e) {
-            e.preventDefault();
-            const input = document.getElementById('dm-input');
-            const text = input.value.trim();
-            if (!text || !activeDMUser) return;
-
-            if (!dmMessages[activeDMUser]) dmMessages[activeDMUser] = [];
-            dmMessages[activeDMUser].push({ sender: currentUser.username, text: text, time: 'Maintenant' });
-            save('tiktakboost_dms', dmMessages);
-            input.value = '';
-            renderDMMessages();
-        };
-
-        // Classement & Comptes
-        function renderLeaderboard() {
-            const container = document.getElementById('leaderboard-cards');
-            if (!container) return;
-            container.innerHTML = '';
-            donators.forEach(d => {
-                const card = document.createElement('div');
-                card.className = 'bg-boostDark border border-boostBorder p-5 rounded-2xl flex flex-col items-center text-center';
-                card.innerHTML = `<div class="text-3xl mb-2">${d.badge}</div><img src="${esc(d.avatar)}" class="w-16 h-16 rounded-full border-2 border-boostPink mb-2"><h4 class="font-extrabold text-base text-white">${esc(d.name)}</h4><p class="text-xs font-bold text-boostCyan mt-1">${esc(d.points)}</p>`;
-                container.appendChild(card);
-            });
-        }
-
-        window.socialLogin = function(provider) {
-            const randomId = Math.floor(Math.random() * 9000) + 1000;
-            currentUser = {
-                username: `@${provider}_User${randomId}`,
-                provider: provider,
-                isLoggedIn: true,
-                points: currentUser.points || 200,
-                avatar: AVATAR(`${provider}_User${randomId}`)
-            };
-            saveUser();
-            window.closeAuthModal();
-            alert(`Connexion réussie avec ${provider} ! Bienvenue sur TIKTAKBOOST.`);
-        };
-
-        window.handleVideoEmbed = function(e) {
-            e.preventDefault();
-            if (!currentUser.isLoggedIn) {
-                alert("Vous devez être connecté avec un compte social pour ajouter une vidéo !");
-                window.closeUploadModal();
-                window.openAuthModal();
-                return;
-            }
-
-            const rawUrl = document.getElementById('video-url').value.trim();
-            let embedUrl = rawUrl;
-
-            if (rawUrl.includes('youtube.com/watch?v=')) {
-                const videoId = rawUrl.split('v=')[1]?.split('&')[0];
-                embedUrl = `https://www.youtube.com/embed/${videoId}`;
-            } else if (rawUrl.includes('youtu.be/')) {
-                const videoId = rawUrl.split('youtu.be/')[1]?.split('?')[0];
-                embedUrl = `https://www.youtube.com/embed/${videoId}`;
-            }
-
-            videoFeed.unshift({
-                id: Date.now(),
-                author: currentUser.username,
-                title: document.getElementById('video-title').value.trim() || 'Vidéo TIKTAKBOOST',
-                desc: document.getElementById('video-desc').value.trim() || '#TIKTAKBOOST',
-                url: embedUrl,
-                likes: 0, comments: 0, avatar: currentUser.avatar
-            });
-
-            save('tiktakboost_videos', videoFeed);
-            e.target.reset();
-            window.closeUploadModal();
-            renderFeed();
-            window.switchTab('feed');
-        };
-
-        function updateProfileUI() {
-            const set = (id, fn) => { const el = document.getElementById(id); if (el) fn(el); };
-
-            set('profile-username', el => el.innerText = currentUser.username);
-            set('profile-points', el => el.innerText = currentUser.points);
-            set('profile-avatar', el => el.src = currentUser.avatar);
-            set('widget-username', el => el.innerText = currentUser.username);
-            set('widget-avatar', el => el.src = currentUser.avatar);
-
-            if (currentUser.isLoggedIn) {
-                set('profile-provider-status', el => {
-                    el.innerText = `Connecté via ${currentUser.provider} ✔️`;
-                    el.className = "text-[10px] px-2 py-0.5 rounded-full bg-green-900/50 text-green-300 border border-green-500/30";
-                });
-                set('profile-verified-badge', el => el.classList.remove('hidden'));
-                set('widget-badge', el => {
-                    el.innerText = currentUser.provider;
-                    el.className = "text-[9px] text-boostCyan font-bold";
-                });
-            }
-
-            const userGrid = document.getElementById('user-videos-grid');
-            if (userGrid) {
-                userGrid.innerHTML = '';
-                const myVideos = videoFeed.filter(v => v.author === currentUser.username);
-                set('profile-videos-count', el => el.innerText = myVideos.length);
-                if (myVideos.length === 0) {
-                    userGrid.innerHTML = '<p class="col-span-full text-xs text-gray-400 text-center py-6">Aucune vidéo intégrée pour le moment.</p>';
-                } else {
-                    myVideos.forEach(v => {
-                        const div = document.createElement('div');
-                        div.className = 'relative aspect-video bg-boostDark rounded-xl overflow-hidden border border-boostBorder';
-                        div.innerHTML = `<iframe src="${esc(v.url)}" class="w-full h-full object-cover border-0" allowfullscreen></iframe>`;
-                        userGrid.appendChild(div);
-                    });
-                }
-            }
-        }
-
-        function saveUser() {
-            save('tiktakboost_user', currentUser);
-            updateProfileUI();
-        }
-
-        window.openAuthModal = () => document.getElementById('auth-modal')?.classList.remove('hidden');
-        window.closeAuthModal = () => document.getElementById('auth-modal')?.classList.add('hidden');
-        window.openUploadModal = () => document.getElementById('upload-modal')?.classList.remove('hidden');
-        window.closeUploadModal = () => document.getElementById('upload-modal')?.classList.add('hidden');
-
-        // Démarrage initial
-        window.addEventListener('load', () => {
-            renderFeed();
-            renderChat();
-            updateProfileUI();
-        });
-    </script>
-</body>
-</html>
+                        <button onclick="window.openAuthModal()" class="px
