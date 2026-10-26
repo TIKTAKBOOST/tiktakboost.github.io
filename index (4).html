@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIKTAKBOOST - Vidéos, Formations et Quiz</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1812112806549571" crossorigin="anonymous"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{--pink:#FE2C55;--cyan:#25F4EE;--card:#1b1b1b;--line:#2a2a2a}
+html,body{height:100%;margin:0;background:#000;color:#fff;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+button{cursor:pointer}
+.card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem}
+.btn{padding:.55rem .9rem;border-radius:.75rem;font-weight:700;font-size:.8rem;background:var(--pink);color:#fff}
+.btn2{padding:.55rem .9rem;border-radius:.75rem;font-weight:700;font-size:.8rem;background:var(--cyan);color:#000}
+.btn3{padding:.55rem .9rem;border-radius:.75rem;font-weight:700;font-size:.8rem;background:#2a2a2a;color:#fff}
+.inp{width:100%;background:#000;border:1px solid var(--line);border-radius:.75rem;padding:.6rem .8rem;font-size:.85rem;color:#fff}
+.inp:focus,button:focus-visible{outline:2px solid var(--cyan)}
+.nav-on{background:rgba(254,44,85,.15);color:var(--pink)}
+.tab{display:none}.tab.on{display:block}
+.snap{scroll-snap-type:y mandatory}.snap>div{scroll-snap-align:start}
+</style>
+</head>
+<body class="flex flex-col md:flex-row overflow-hidden">
+
+<nav class="order-2 md:order-1 w-full md:w-60 shrink-0 bg-[#121212] border-t md:border-t-0 md:border-r border-[#2a2a2a] p-2 md:p-4 flex md:flex-col gap-1 overflow-x-auto md:overflow-y-auto">
+  <div class="hidden md:block mb-4 font-black text-2xl">TIKTAK<span style="color:var(--pink)">BOOST</span></div>
+  <div id="menu" class="flex md:flex-col gap-1 w-full"></div>
+  <div class="hidden md:block mt-auto pt-3 border-t border-[#2a2a2a]">
+    <button class="btn2 w-full mb-2" onclick="openModal('m-video')">Ajouter une vidéo</button>
+    <div class="text-xs text-gray-400 mb-1" id="side-user">Invité</div>
+    <button class="text-xs font-bold" style="color:var(--pink)" onclick="openModal('m-auth')">Connexion</button>
+  </div>
+</nav>
+
+<main class="order-1 md:order-2 flex-1 h-full overflow-y-auto relative">
+  <header class="sticky top-0 z-30 bg-black/80 backdrop-blur px-4 py-3 border-b border-[#2a2a2a] flex items-center justify-between">
+    <span class="md:hidden font-black">TIKTAK<span style="color:var(--pink)">BOOST</span></span>
+    <span class="text-xs card !py-1 !px-3 ml-auto">Points : <b id="hd-points" style="color:var(--cyan)">0</b> · Reset le 25</span>
+    <button class="md:hidden btn2 ml-2" onclick="openModal('m-video')" aria-label="Ajouter une vidéo">+</button>
+  </header>
+
+  <section id="tab-feed" class="tab p-3 max-w-md mx-auto"><div id="feed" class="space-y-4"></div></section>
+  <section id="tab-formations" class="tab p-4 max-w-3xl mx-auto">
+    <h2 class="text-2xl font-black mb-1">Académie des formations</h2>
+    <p class="text-xs text-gray-400 mb-4">Chaque module lu pour la première fois rapporte 20 points Boost.</p>
+    <div id="f-tabs" class="flex gap-2 mb-4"></div><div id="f-body" class="space-y-4"></div>
+  </section>
+  <section id="tab-live" class="tab p-4 max-w-3xl mx-auto">
+    <h2 class="text-2xl font-black mb-1">Live</h2>
+    <p class="text-xs text-gray-400 mb-4">Test de ta caméra en local. Pour diffuser à d'autres personnes, il faut un serveur de streaming (voir Légal et limites).</p>
+    <div class="card"><video id="cam" autoplay playsinline muted class="w-full rounded-xl bg-black aspect-video"></video>
+    <div class="flex gap-2 mt-3"><button class="btn" onclick="camOn()">Démarrer la caméra</button><button class="btn3" onclick="camOff()">Arrêter</button></div>
+    <p id="cam-msg" class="text-xs text-gray-400 mt-2"></p></div>
+  </section>
+  <section id="tab-ai" class="tab p-4 max-w-3xl mx-auto">
+    <h2 class="text-2xl font-black mb-1">Studio IA Gemini</h2>
+    <div class="card mb-4">
+      <label class="text-xs font-bold">Ta clé API Gemini (gratuite sur aistudio.google.com)</label>
+      <div class="flex gap-2 mt-1"><input id="ai-key" type="password" class="inp" placeholder="Colle ta clé ici"><button class="btn" onclick="saveKey()">Enregistrer</button></div>
+      <p class="text-[11px] text-gray-400 mt-2">La clé reste dans ton navigateur seulement. Ne la mets jamais dans le code publié sur GitHub : tout le monde pourrait la voir.</p>
+    </div>
+    <div class="card space-y-2">
+      <input id="ai-topic" class="inp" placeholder="Sujet de ta vidéo, ex : 3 astuces pour doubler mes vues">
+      <select id="ai-plat" class="inp"><option>TikTok</option><option>YouTube Shorts</option><option>Instagram Reels</option></select>
+      <button class="btn w-full" onclick="aiScript()">Générer un script</button>
+      <div id="ai-out" class="text-xs whitespace-pre-line text-gray-200"></div>
+    </div>
+  </section>
+  <section id="tab-quiz" class="tab p-4 max-w-3xl mx-auto">
+    <div class="card mb-4 flex justify-between items-center"><div><h2 class="text-2xl font-black">Quiz</h2><p class="text-xs text-gray-400">+100 points par bonne réponse, 3 questions par semaine.</p></div><div class="text-center"><div class="text-[10px] text-gray-400">Cette semaine</div><div id="q-count" class="text-lg font-black" style="color:var(--cyan)">0 / 3</div></div></div>
+    <div id="q-tabs" class="flex gap-2 mb-4"></div><div id="q-card" class="card"></div>
+  </section>
+  <section id="tab-chat" class="tab p-4 max-w-3xl mx-auto">
+    <h2 class="text-2xl font-black mb-1">Chat</h2>
+    <p class="text-xs text-gray-400 mb-3">Les messages restent sur ton appareil. Un chat partagé entre membres demande un serveur. Écris @Gemini pour poser une question à l'IA.</p>
+    <div id="chat-box" class="card h-80 overflow-y-auto space-y-2 text-sm"></div>
+    <form onsubmit="sendChat(event)" class="flex gap-2 mt-2"><input id="chat-in" maxlength="300" class="inp" placeholder="Ton message"><button class="btn">Envoyer</button></form>
+  </section>
+  <section id="tab-rank" class="tab p-4 max-w-3xl mx-auto">
+    <div class="card mb-4 flex justify-between items-center"><div><h2 class="text-2xl font-black">Classement</h2><p class="text-xs text-gray-400">Ton score du mois. Un classement entre membres demande un serveur.</p></div><div class="text-center"><div class="text-[10px] text-gray-400">Reset dans</div><div id="countdown" class="font-black" style="color:var(--pink)"></div></div></div>
+    <div id="rank-list" class="space-y-2"></div>
+  </section>
+  <section id="tab-profile" class="tab p-4 max-w-3xl mx-auto">
+    <div class="card mb-4"><h2 id="p-name" class="text-2xl font-black">Invité</h2><p id="p-mail" class="text-xs text-gray-400">Connecte-toi pour personnaliser ton profil.</p>
+    <div class="flex gap-6 mt-3"><div><div id="p-points" class="text-xl font-black" style="color:var(--cyan)">0</div><div class="text-[10px] text-gray-400">Points Boost</div></div><div><div id="p-vids" class="text-xl font-black">0</div><div class="text-[10px] text-gray-400">Vidéos ajoutées</div></div></div>
+    <div class="flex gap-2 mt-4"><button class="btn" onclick="openModal('m-auth')">Connexion</button><button class="btn3" onclick="logout()">Déconnexion</button></div></div>
+    <h3 class="font-bold mb-2">Mes vidéos</h3><div id="p-list" class="space-y-2"></div>
+  </section>
+  <section id="tab-legal" class="tab p-4 max-w-3xl mx-auto space-y-3 text-xs text-gray-300">
+    <h2 class="text-2xl font-black text-white">Conditions et mentions légales</h2>
+    <div class="card space-y-2">
+      <h3 class="text-sm font-black text-white">Mentions légales</h3>
+      <p><b>Éditeur :</b> [À COMPLÉTER : ton nom ou celui de ta structure]</p>
+      <p><b>Contact :</b> [À COMPLÉTER : ton adresse e-mail]</p>
+      <p><b>Directeur de la publication :</b> [À COMPLÉTER]</p>
+      <p><b>Hébergeur :</b> GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
+      <h3 class="text-sm font-black text-white pt-2">Conditions générales d'utilisation</h3>
+      <p>L'utilisation du site implique l'acceptation de ces conditions. Il est interdit de publier des contenus illicites, haineux, ou protégés par des droits d'auteur sans autorisation. Les vidéos affichées sont intégrées depuis TikTok, YouTube ou Instagram : elles restent la propriété de leurs auteurs et soumises aux règles de ces plateformes. Les points Boost n'ont aucune valeur monétaire.</p>
+      <h3 class="text-sm font-black text-white pt-2">Politique de confidentialité</h3>
+      <p>Les données du profil (pseudo, e-mail, points, vidéos, messages) sont enregistrées uniquement dans le navigateur de l'utilisateur (localStorage) et ne sont pas envoyées à nos soins. Les vidéos intégrées et la publicité (Google AdSense) peuvent déposer des cookies selon les règles de leurs éditeurs. Si tu utilises le Studio IA, ton texte est envoyé à Google Gemini avec ta propre clé API. Tu peux effacer tes données en vidant le stockage de ton navigateur.</p>
+      <p class="text-gray-500">Ce texte est un modèle et ne remplace pas un conseil juridique. Complète les champs entre crochets avec tes vraies informations.</p>
+    </div>
+  </section>
+</main>
+
+<!-- MODALES -->
+<div id="m-auth" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4">
+  <form onsubmit="login(event)" class="card w-full max-w-sm space-y-3"><h3 class="text-xl font-black">Connexion</h3>
+    <input id="a-name" required class="inp" placeholder="Pseudo"><input id="a-mail" type="email" required class="inp" placeholder="E-mail">
+    <p class="text-[11px] text-gray-400">Profil enregistré sur cet appareil uniquement.</p>
+    <div class="flex gap-2"><button class="btn flex-1">Valider</button><button type="button" class="btn3" onclick="closeModal('m-auth')">Fermer</button></div></form>
+</div>
+<div id="m-video" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4">
+  <form onsubmit="addVideo(event)" class="card w-full max-w-sm space-y-3"><h3 class="text-xl font-black">Ajouter une vidéo</h3>
+    <input id="v-url" required class="inp" placeholder="Lien TikTok, YouTube ou Instagram Reel">
+    <input id="v-title" class="inp" placeholder="Titre (facultatif)">
+    <p id="v-err" class="text-xs text-red-400"></p>
+    <div class="flex gap-2"><button class="btn flex-1">Ajouter</button><button type="button" class="btn3" onclick="closeModal('m-video')">Fermer</button></div></form>
+</div>
+
+<script>
+/* ===== CONFIG ===== */
+var GEMINI_MODEL = "gemini-2.5-flash"; // change ce nom si Google le remplace
+var TABS = [["feed","Pour toi"],["formations","Formations"],["live","Live"],["ai","Studio IA"],["quiz","Quiz"],["chat","Chat"],["rank","Classement"],["profile","Profil"],["legal","Légal"]];
+
+/* ===== STOCKAGE ===== */
+function load(k, d){ try { var v = JSON.parse(localStorage.getItem(k)); return v === null ? d : v; } catch(e){ return d; } }
+function save(){ try { localStorage.setItem("tkb", JSON.stringify(S)); } catch(e){} }
+var S = load("tkb", {});
+S.user = S.user || null; S.points = S.points || 0; S.videos = S.videos || []; S.done = S.done || [];
+S.quiz = S.quiz || {week:0, n:0}; S.chat = S.chat || []; S.cycle = S.cycle || "";
+function cycleKey(){ var d = new Date(), m = d.getMonth(), y = d.getFullYear(); if (d.getDate() < 25) { m--; if (m < 0) { m = 11; y--; } } return y + "-" + m; }
+if (S.cycle !== cycleKey()) { S.cycle = cycleKey(); S.points = 0; S.done = []; save(); }
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function $(id){ return document.getElementById(id); }
+
+/* ===== NAVIGATION ===== */
+function buildMenu(){
+  $("menu").innerHTML = TABS.map(function(t){ return '<button id="nav-'+t[0]+'" onclick="switchTab(\''+t[0]+'\')" class="nav-btn whitespace-nowrap text-left px-3 py-2 rounded-xl text-xs md:text-sm font-bold text-gray-300">'+t[1]+'</button>'; }).join("");
+}
+function switchTab(id){
+  TABS.forEach(function(t){ $("tab-"+t[0]).classList.toggle("on", t[0]===id); $("nav-"+t[0]).classList.toggle("nav-on", t[0]===id); });
+  if (id==="formations") showFormation(curF); if (id==="quiz") showQuiz(curQ); if (id==="rank") renderRank();
+  if (id==="profile") renderProfile(); if (id==="chat") renderChat();
+}
+function openModal(id){ $(id).classList.remove("hidden"); $(id).classList.add("flex"); }
+function closeModal(id){ $(id).classList.add("hidden"); $(id).classList.remove("flex"); }
+function refreshPoints(){ $("hd-points").textContent = S.points; $("side-user").textContent = S.user ? S.user.name : "Invité"; }
+function addPoints(n){ S.points += n; save(); refreshPoints(); }
+
+/* ===== VIDÉOS ===== */
+function embedUrl(u){
+  var m;
+  if ((m = u.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/))) return "https://www.youtube.com/embed/"+m[1];
+  if ((m = u.match(/tiktok\.com\/.*\/video\/(\d+)/))) return "https://www.tiktok.com/embed/v2/"+m[1];
+  if ((m = u.match(/instagram\.com\/(?:reel|p)\/([\w-]+)/))) return "https://www.instagram.com/p/"+m[1]+"/embed";
+  return null;
+}
+function addVideo(e){
+  e.preventDefault();
+  var url = $("v-url").value.trim(), emb = embedUrl(url);
+  if (!emb){ $("v-err").textContent = "Lien non reconnu. Utilise un lien complet TikTok (avec /video/), YouTube ou Instagram. Les liens courts TikTok (vm.tiktok.com) ne marchent pas : ouvre-les d'abord et copie le lien final."; return; }
+  $("v-err").textContent = "";
+  S.videos.unshift({emb: emb, title: $("v-title").value.trim() || "Vidéo sans titre", by: S.user ? S.user.name : "Invité"});
+  save(); $("v-url").value = ""; $("v-title").value = ""; closeModal("m-video"); renderFeed(); renderProfile(); switchTab("feed");
+}
+function renderFeed(){
+  if (!S.videos.length){ $("feed").innerHTML = '<div class="card text-center text-sm text-gray-300 py-10">Ton fil est vide.<br>Clique sur « Ajouter une vidéo » et colle un lien TikTok, YouTube ou Instagram.</div>'; return; }
+  $("feed").innerHTML = S.videos.map(function(v){ return '<div class="card"><iframe src="'+esc(v.emb)+'" loading="lazy" allowfullscreen class="w-full rounded-xl bg-black" style="height:70vh;border:0"></iframe><p class="font-bold text-sm mt-2">'+esc(v.title)+'</p><p class="text-xs text-gray-400">par '+esc(v.by)+'</p></div>'; }).join("");
+}
+
+/* ===== FORMATIONS ===== */
+var F = {
+ tiktok:{name:"TikTok", mods:[
+  ["Débutant : comment fonctionne le fil « Pour toi »","TikTok recommande chaque vidéo à un petit groupe de test. Si ce groupe la regarde longtemps, la revoit, la commente ou la partage, elle est proposée à un groupe plus large. Ton nombre d'abonnés compte moins que la réaction des premiers spectateurs. Règle de base : captive en 2 secondes et garde un rythme sans temps mort."],
+  ["Intermédiaire : augmenter ses vues","Le signal le plus important est le temps de visionnage : vise des vidéos courtes qui sont regardées jusqu'au bout, et une fin qui donne envie de revoir. Poste régulièrement, reste dans une niche claire, utilise des sons et sujets en tendance quand ils collent à ton contenu, écris une accroche à l'écran. Les hashtags aident à classer ta vidéo mais ne remplacent pas un bon contenu. Regarde tes statistiques : repère à quel moment les gens partent."],
+  ["Avancé : règles et monétisation","Lis les Règles de la communauté TikTok : pas de contenu haineux, dangereux ou trompeur, pas de musique sans droits pour un usage commercial. Pour gagner de l'argent (programmes pour créateurs, TikTok Shop, Lives), TikTok fixe des conditions d'âge, d'abonnés et de pays qui changent : vérifie-les toujours sur le site officiel. Évite les achats de vues ou d'abonnés, qui peuvent mener à une sanction."]]},
+ instagram:{name:"Instagram", mods:[
+  ["Débutant : Reels, Stories, publications","Les Reels servent surtout à toucher de nouvelles personnes. Les Stories et publications servent à fidéliser ceux qui te suivent déjà. Un profil clair (photo, bio qui dit ce que tu proposes, lien) aide les nouveaux visiteurs à s'abonner."],
+  ["Intermédiaire : ce qui fait recommander un Reel","Instagram met en avant les Reels qui sont regardés longtemps, partagés en message, enregistrés et commentés. Fais des vidéos verticales de bonne qualité, avec une accroche visuelle immédiate et des sous-titres. Les partages privés sont un très bon signal : crée du contenu que l'on a envie d'envoyer à un ami. Des mots-clés dans la légende et le nom du profil aident la recherche."],
+  ["Avancé : régularité et règles","Garde une identité visuelle cohérente, réponds aux commentaires dans la première heure, teste plusieurs formats puis garde ceux qui marchent. Respecte les règles officielles d'Instagram (droits d'auteur, contenus sensibles, partenariats rémunérés à signaler). Ne copie pas les vidéos d'autres créateurs : elles peuvent être retirées de la recommandation."]]},
+ youtube:{name:"YouTube", mods:[
+  ["Débutant : Shorts et vidéos longues","Les Shorts font découvrir ta chaîne vite. Les vidéos longues construisent une audience fidèle et de meilleurs revenus. Beaucoup de créateurs combinent les deux. Choisis un sujet précis et un public précis."],
+  ["Intermédiaire : clics et rétention","YouTube observe deux choses : est-ce que les gens cliquent (titre et miniature) et est-ce qu'ils restent (durée de visionnage, rétention). Écris un titre clair qui donne envie, une miniature lisible sur téléphone, et tiens la promesse du titre dès les premières secondes. Le rapport « rétention de l'audience » dans YouTube Studio montre où les spectateurs partent."],
+  ["Avancé : règles et monétisation","Le Programme Partenaire YouTube demande un seuil d'abonnés et d'heures de visionnage ou de vues de Shorts, qui peut évoluer : vérifie-le dans YouTube Studio. Respecte les règles sur les droits d'auteur, le contenu destiné aux enfants et les contenus trompeurs. Analyse tes statistiques chaque semaine pour décider du prochain sujet."]]}
+};
+var curF = "tiktok";
+function showFormation(k){
+  curF = k;
+  $("f-tabs").innerHTML = Object.keys(F).map(function(x){ return '<button onclick="showFormation(\''+x+'\')" class="'+(x===k?'btn':'btn3')+'">'+F[x].name+'</button>'; }).join("");
+  $("f-body").innerHTML = F[k].mods.map(function(m, i){
+    var id = k+i, done = S.done.indexOf(id) > -1;
+    return '<div class="card"><h3 class="font-black mb-2">'+esc(m[0])+'</h3><p class="text-sm text-gray-300 leading-relaxed">'+esc(m[1])+'</p><button class="'+(done?'btn3':'btn2')+' mt-3" '+(done?'disabled':'onclick="finishModule(\''+id+'\')"')+'>'+(done?'Module terminé':'J\'ai lu ce module (+20 points)')+'</button></div>';
+  }).join("");
+}
+function finishModule(id){ if (S.done.indexOf(id) < 0){ S.done.push(id); addPoints(20); } showFormation(curF); }
+
+/* ===== QUIZ ===== */
+var Q = {
+ tiktok:[
+  {q:"Quel signal pèse le plus dans la recommandation d'une vidéo TikTok ?",o:["Le nombre d'abonnés","Le temps de visionnage","L'heure exacte de publication"],a:1},
+  {q:"Une vidéo TikTok est d'abord montrée à…",o:["Tous les abonnés d'un coup","Un petit groupe de test","Uniquement aux amis proches"],a:1},
+  {q:"Acheter des vues ou des abonnés est…",o:["Conseillé pour démarrer","Sans risque","Risqué et peut mener à une sanction"],a:2},
+  {q:"Les hashtags servent surtout à…",o:["Classer et situer ta vidéo","Remplacer un bon contenu","Garantir des vues"],a:0}],
+ instagram:[
+  {q:"Quel signal est très utile pour un Reel ?",o:["Les partages en message privé","Le nombre de hashtags","La longueur de la bio"],a:0},
+  {q:"Les Reels servent surtout à…",o:["Toucher de nouvelles personnes","Remplacer les Stories","Cacher son profil"],a:0},
+  {q:"Un partenariat rémunéré doit être…",o:["Caché","Signalé","Supprimé après 24 h"],a:1},
+  {q:"Copier la vidéo d'un autre créateur…",o:["Aide à être recommandé","Peut la faire retirer de la recommandation","Est obligatoire"],a:1}],
+ youtube:[
+  {q:"Que décident le titre et la miniature ?",o:["Le taux de clic","La musique","Le lieu du tournage"],a:0},
+  {q:"Où voir où les spectateurs quittent la vidéo ?",o:["Dans la rétention de l'audience de YouTube Studio","Dans les commentaires seulement","Nulle part"],a:0},
+  {q:"Les Shorts servent surtout à…",o:["Faire découvrir la chaîne","Remplacer toute vidéo longue","Désactiver la monétisation"],a:0},
+  {q:"Les seuils du Programme Partenaire…",o:["Ne changent jamais","Peuvent évoluer, il faut les vérifier","N'existent pas"],a:1}]
+};
+var curQ = "tiktok", qIdx = {tiktok:0, instagram:0, youtube:0};
+function weekNow(){ return Math.floor(Date.now() / 604800000); }
+function showQuiz(k){
+  curQ = k;
+  if (S.quiz.week !== weekNow()){ S.quiz = {week: weekNow(), n: 0}; save(); }
+  $("q-count").textContent = S.quiz.n + " / 3";
+  $("q-tabs").innerHTML = Object.keys(Q).map(function(x){ return '<button onclick="showQuiz(\''+x+'\')" class="'+(x===k?'btn':'btn3')+'">'+(F[x].name)+'</button>'; }).join("");
+  if (S.quiz.n >= 3){ $("q-card").innerHTML = '<p class="text-sm text-gray-300">Tu as utilisé tes 3 questions de la semaine. Reviens la semaine prochaine, et en attendant lis les formations pour gagner des points.</p>'; return; }
+  var q = Q[k][qIdx[k] % Q[k].length];
+  $("q-card").innerHTML = '<h3 class="font-black mb-3">'+esc(q.q)+'</h3><div class="space-y-2">'+q.o.map(function(o, i){ return '<button class="btn3 w-full text-left" onclick="answer('+i+')">'+esc(o)+'</button>'; }).join("")+'</div><p id="q-res" class="text-sm mt-3"></p>';
+}
+function answer(i){
+  var q = Q[curQ][qIdx[curQ] % Q[curQ].length], ok = i === q.a;
+  S.quiz.n++; qIdx[curQ]++; if (ok) S.points += 100; save(); refreshPoints();
+  $("q-count").textContent = S.quiz.n + " / 3";
+  $("q-card").innerHTML = '<p class="font-black mb-2" style="color:'+(ok?'var(--cyan)':'var(--pink)')+'">'+(ok?'Bonne réponse : +100 points':'Mauvaise réponse')+'</p><p class="text-sm text-gray-300 mb-3">Bonne réponse : '+esc(q.o[q.a])+'</p><button class="btn" onclick="showQuiz(curQ)">Continuer</button>';
+}
+
+/* ===== LIVE (caméra locale) ===== */
+var stream = null;
+function camOn(){
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ $("cam-msg").textContent = "Caméra non disponible sur ce navigateur."; return; }
+  navigator.mediaDevices.getUserMedia({video:true, audio:false}).then(function(s){ stream = s; $("cam").srcObject = s; $("cam-msg").textContent = "Caméra active (visible par toi seulement)."; })
+  .catch(function(){ $("cam-msg").textContent = "Accès refusé. Autorise la caméra dans les réglages du navigateur."; });
+}
+function camOff(){ if (stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream = null; $("cam").srcObject = null; $("cam-msg").textContent = "Caméra arrêtée."; } }
+
+/* ===== IA GEMINI ===== */
+function saveKey(){ var k = $("ai-key").value.trim(); if (k){ try { localStorage.setItem("tkb_key", k); } catch(e){} $("ai-key").value = ""; alert("Clé enregistrée sur cet appareil."); } }
+function askGemini(prompt){
+  var key = ""; try { key = localStorage.getItem("tkb_key") || ""; } catch(e){}
+  if (!key) return Promise.resolve("Ajoute d'abord ta clé API Gemini dans l'onglet Studio IA.");
+  return fetch("https://generativelanguage.googleapis.com/v1beta/models/"+GEMINI_MODEL+":generateContent?key="+encodeURIComponent(key), {
+    method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({contents:[{parts:[{text: prompt}]}]})
+  }).then(function(r){ return r.json(); }).then(function(d){
+    if (d.error) return "Erreur Gemini : " + d.error.message;
+    try { return d.candidates[0].content.parts[0].text; } catch(e){ return "Réponse vide de Gemini."; }
+  }).catch(function(){ return "Connexion impossible à Gemini."; });
+}
+function aiScript(){
+  var t = $("ai-topic").value.trim(); if (!t) return;
+  $("ai-out").textContent = "Génération en cours...";
+  askGemini("Écris en français un script court pour une vidéo "+$("ai-plat").value+" sur : "+t+". Donne : une accroche de 2 secondes, 3 à 4 scènes, un appel à l'action, 5 hashtags.").then(function(r){ $("ai-out").textContent = r; });
+}
+
+/* ===== CHAT ===== */
+function renderChat(){
+  var b = $("chat-box");
+  b.innerHTML = S.chat.length ? S.chat.map(function(m){ return '<div><b style="color:'+(m.bot?'#c084fc':'var(--cyan)')+'">'+esc(m.by)+'</b> '+esc(m.t)+'</div>'; }).join("") : '<p class="text-gray-400 text-xs">Aucun message. Écris le premier.</p>';
+  b.scrollTop = b.scrollHeight;
+}
+function pushChat(m){ S.chat.push(m); S.chat = S.chat.slice(-60); save(); renderChat(); }
+function sendChat(e){
+  e.preventDefault(); var t = $("chat-in").value.trim(); if (!t) return; $("chat-in").value = "";
+  pushChat({by: S.user ? S.user.name : "Invité", t: t});
+  if (/@gemini/i.test(t)) askGemini(t.replace(/@gemini/ig, "") + " (réponds en français, en 3 phrases maximum)").then(function(r){ pushChat({by:"Gemini", t:r, bot:true}); });
+}
+
+/* ===== CLASSEMENT, PROFIL, CONNEXION ===== */
+function renderRank(){
+  $("rank-list").innerHTML = '<div class="card flex justify-between"><span class="font-bold">1. '+esc(S.user ? S.user.name : "Invité")+'</span><span style="color:var(--cyan)" class="font-black">'+S.points+' pts</span></div><p class="text-xs text-gray-400">Tu es seul dans ce classement pour le moment : les scores de plusieurs membres demandent un serveur.</p>';
+}
+function tick(){
+  var d = new Date(), n = new Date(d.getFullYear(), d.getMonth(), 25);
+  if (d >= n) n = new Date(d.getFullYear(), d.getMonth() + 1, 25);
+  var s = Math.floor((n - d) / 60000);
+  $("countdown").textContent = Math.floor(s/1440)+"j "+Math.floor(s%1440/60)+"h "+(s%60)+"m";
+}
+function renderProfile(){
+  $("p-name").textContent = S.user ? S.user.name : "Invité";
+  $("p-mail").textContent = S.user ? S.user.email : "Connecte-toi pour personnaliser ton profil.";
+  $("p-points").textContent = S.points; $("p-vids").textContent = S.videos.length;
+  $("p-list").innerHTML = S.videos.length ? S.videos.map(function(v, i){ return '<div class="card flex justify-between items-center text-sm"><span>'+esc(v.title)+'</span><button class="btn3" onclick="delVideo('+i+')">Supprimer</button></div>'; }).join("") : '<p class="text-xs text-gray-400">Aucune vidéo pour l\'instant.</p>';
+}
+function delVideo(i){ S.videos.splice(i, 1); save(); renderFeed(); renderProfile(); }
+function login(e){ e.preventDefault(); S.user = {name: $("a-name").value.trim(), email: $("a-mail").value.trim()}; save(); closeModal("m-auth"); refreshPoints(); renderProfile(); }
+function logout(){ S.user = null; save(); refreshPoints(); renderProfile(); }
+
+/* ===== DÉMARRAGE ===== */
+buildMenu(); refreshPoints(); renderFeed(); tick(); setInterval(tick, 30000); switchTab("feed");
+</script>
+</body>
+</html>
