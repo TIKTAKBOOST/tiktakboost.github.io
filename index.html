@@ -396,4 +396,72 @@
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 w-full sm:w-auto">
-                        <button onclick="window.openAuthModal()" class="px
+                        <button onclick="window.openAuthModal()" class="px-5 py-2.5 bg-boostPink hover:bg-pink-600 rounded-xl font-bold text-xs transition">
+                            <i class="fa-solid fa-right-to-bracket mr-1"></i> Connexion / Inscription
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <h3 class="font-extrabold text-lg mb-4">Mes Vidéos Intégrées</h3>
+            <div id="user-videos-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+        </section>
+
+        <!-- 10. CONDITIONS DU SITE & MENTIONS LÉGALES -->
+        <section id="tab-legal" class="tab-content hidden h-full overflow-y-auto p-4 md:p-8 max-w-4xl mx-auto space-y-6 text-gray-300">
+            <div class="bg-boostDark border border-boostBorder p-6 rounded-2xl">
+                <h2 class="text-2xl font-black text-white flex items-center gap-2 mb-2">
+                    <i class="fa-solid fa-shield-halved text-boostCyan"></i> Conditions Générales & Mentions Légales
+                </h2>
+                <p class="text-xs text-gray-400">Conformément aux réglementations en vigueur, voici les informations juridiques et conditions d'utilisation de la plateforme TIKTAKBOOST.</p>
+            </div>
+
+            <div class="bg-boostDark border border-boostBorder p-6 rounded-2xl space-y-4 text-xs">
+                <h3 class="text-sm font-black text-white">1. Mentions Légales</h3>
+                <p><strong>Éditeur du site :</strong> TIKTAKBOOST (Projet indépendant hébergé sur GitHub Pages).</p>
+                <p><strong>Hébergeur :</strong> GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA.</p>
+                <p><strong>Directeur de la publication :</strong> L'administrateur de la plateforme TIKTAKBOOST.</p>
+                
+                <h3 class="text-sm font-black text-white pt-2">2. Conditions Générales d'Utilisation (CGU)</h3>
+                <p>L'accès et l'utilisation de TIKTAKBOOST impliquent l'acceptation pleine et entière des présentes CGU. Les utilisateurs s'engagent à ne pas publier de contenus illicites, haineux, protégés par des droits d'auteur sans autorisation, ou contraires aux bonnes mœurs.</p>
+
+                <h3 class="text-sm font-black text-white pt-2">3. Politique de Confidentialité & Données</h3>
+                <p>TIKTAKBOOST respecte la vie privée de ses utilisateurs. Les données de profil et de score (Points Boost) sont stockées localement sur votre navigateur (localStorage) ou gérées via des services sécurisés. Aucun identifiant personnel sensible n'est vendu ou cédé à des tiers.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL AUTHENTIFICATION -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-boostDark border border-boostBorder rounded-2xl w-full max-w-md p-6 relative">
+            <button onclick="window.closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-xl font-black text-white mb-4">Connexion TIKTAKBOOST</h3>
+            <form onsubmit="window.handleAuth(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Nom d'utilisateur / Pseudo</label>
+                    <input type="text" id="auth-username" required placeholder="Ex: CreateurDuSud" class="w-full bg-black border border-boostBorder rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-boostPink text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Email</label>
+                    <input type="email" id="auth-email" required placeholder="votre@email.com" class="w-full bg-black border border-boostBorder rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-boostPink text-white">
+                </div>
+                <button type="submit" class="w-full py-3 bg-boostPink hover:bg-pink-600 font-black text-xs text-white rounded-xl transition shadow-lg">Se connecter / S'inscrire</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL AJOUT LIEN VIDÉO -->
+    <div id="upload-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-boostDark border border-boostBorder rounded-2xl w-full max-w-md p-6 relative">
+            <button onclick="window.closeUploadModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-xl font-black text-white mb-2">Ajouter une vidéo par lien</h3>
+            <p class="text-xs text-gray-400 mb-4">Collez le lien de votre vidéo (TikTok, YouTube Shorts, etc.)</p>
+            <form onsubmit="window.handleAddVideo(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Lien de la vidéo</label>
+                    <input type="url" id="video-link-input" required placeholder="https://www.tiktok.com/@user/video/..." class="w-full bg-black border border-boostBorder rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-boostCyan text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Description / Titre</label>
+                    <input type="text" id="video-desc-input" required placeholder="Ma nouvelle astuce virale..." class="w-full bg-black border border-boostBorder rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-boostCyan text-white">
+                </div>
+                <button type="submit" class="w-full py-3 bg-boostCyan hover:bg-cyan-300 font-black text-xs text-
