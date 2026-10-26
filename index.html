@@ -455,13 +455,4 @@
             <button onclick="window.closeUploadModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h3 class="text-xl font-black text-white mb-2">Ajouter une vidéo par lien</h3>
             <p class="text-xs text-gray-400 mb-4">Collez le lien de votre vidéo (TikTok, YouTube Shorts, etc.)</p>
-            <form onsubmit="window.handleAddVideo(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-300 mb-1">Lien de la vidéo</label>
-                    <input type="url" id="video-link-input" required placeholder="https://www.tiktok.com/@user/video/..." class="w-full bg-black border border-boostBorder rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-boostCyan text-white">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-300 mb-1">Description / Titre</label>
-                    <input type="text" id="video-desc-input" required placeholder="Ma nouvelle astuce virale..." class="w-full bg-black border border-boostBorder rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-boostCyan text-white">
-                </div>
-                <button type="submit" class="w-full py-3 bg-boostCyan hover:bg-cyan-300 font-black text-xs text-
+            <form onsubmit="window.handleAddVideo
