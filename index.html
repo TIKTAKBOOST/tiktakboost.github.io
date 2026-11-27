@@ -58,7 +58,7 @@ body{background:radial-gradient(ellipse at 70% 22%,#162f43 0,transparent 48%),ra
 </div>
 <div class="controls">
 <p id="status" role="status">Vérification du modèle IA…</p>
-<button id="activate" type="button" hidden>Activer le modèle IA</button>
+
 <form id="composer">
 <button id="mic" type="button" aria-label="Dicter un message" title="Dicter un message">🎙</button>
 <label for="message" class="sr-only">Ton message</label>
@@ -100,53 +100,84 @@ const tiktokKnowledge = [
 ];
 
 const byId = id => document.getElementById(id);
-const model = globalThis.LanguageModel;
+
 const SpeechRecognition = globalThis.SpeechRecognition || globalThis.webkitSpeechRecognition;
 const tiktokContext = tiktokKnowledge.map(({title, summary}) => title + ' — ' + summary).join('\n');
-const options = {
-  expectedInputs: [{type: 'text', languages: ['fr']}],
-  expectedOutputs: [{type: 'text', languages: ['fr']}],
-  initialPrompts: [{role: 'system', content: 'Tu es Mia, l’assistante personnelle francophone de Typecast Studio. Tu réponds aux questions générales, expliques, rédiges, proposes des idées et aides à organiser les projets. Suis le sujet choisi par la personne et les échanges précédents. Réponds naturellement et clairement. Aide à créer des scripts, des découpages, des dialogues et des prompts vidéo. Pour une durée précise, donne des plans dont les durées totalisent exactement cette durée. Tu peux préparer une vidéo, sans prétendre avoir rendu un fichier vidéo. Pour les réponses vocales, évite le formatage Markdown.' + '\nPour TikTok, utilise les repères ci-dessous. Indique la fiche officielle pertinente dans la réponse (les liens sont dans le panneau Sources officielles TikTok). Distingue les règles et les conseils éditoriaux. Ne présente jamais de seuil fixe, de fréquence magique ou de viralité garantie. Si un point n’est pas couvert ou peut avoir changé, dis-le et invite à vérifier la source officielle.\n' + tiktokContext}]
-};
-let session;
-let availability = 'unavailable';
 let busy = false;
 let recognition;
 let listening = false;
-
+let engine;
+let ready = false;
+let pending;
+let history = [];
 const status = message => { byId('status').textContent = message; };
 function refresh() {
-  byId('send').disabled = busy || listening || (availability !== 'available' && !session);
-  byId('activate').hidden = availability !== 'downloadable' && availability !== 'downloading';
-  byId('activate').disabled = busy;
+  byId('send').disabled = busy || listening;
   byId('reset').disabled = busy || listening;
   byId('mic').disabled = !SpeechRecognition || busy;
 }
 function reportAvailability() {
-  if (availability === 'available') status('Assistant prêt. Écris ou dicte ton message.');
-  else if (availability === 'downloading') status('Le modèle IA est en cours de téléchargement.');
-  else if (availability === 'downloadable') status('Télécharge une fois le modèle IA intégré à Chrome.');
-  else status('Modèle IA indisponible ici. Ouvre le studio dans Chrome à jour sur un ordinateur compatible avec Gemini Nano.');
+  status(ready ? 'Mia est prête. Pose ta question.' : 'Au premier message, Mia téléchargera son modèle sur cet appareil (environ 540 Mo).');
   refresh();
 }
-async function checkModel() {
-  try {
-    if (model) availability = await model.availability(options);
-  } catch (error) {
-    console.error(error);
-  }
-  reportAvailability();
-}
-async function startSession() {
-  session = await model.create({
-    ...options,
-    monitor(monitor) {
-      monitor.addEventListener('downloadprogress', event => {
-        status('Téléchargement du modèle IA… ' + Math.round(event.loaded * 100) + ' %');
-      });
+function workerMain() {
+  let generator;
+  self.onmessage = async ({data}) => {
+    try {
+      if (!generator) {
+        const {pipeline, env} = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.3/dist/transformers.min.js');
+        env.allowLocalModels = false;
+        env.backends.onnx.wasm.numThreads = 1;
+        generator = await pipeline('text-generation', 'onnx-community/Qwen2.5-0.5B-Instruct', {
+          device: 'wasm', dtype: 'q8',
+          progress_callback(info) {
+            if (info.status === 'progress' && info.file.endsWith('.onnx')) {
+              self.postMessage({status: 'Chargement de Mia · ' + Math.round(info.loaded / 1e6) + ' Mo'});
+            }
+          }
+        });
+      }
+      self.postMessage({status: 'Mia prépare sa réponse…'});
+      const result = await generator(data, {max_new_tokens: 180, do_sample: false});
+      const messages = result[0].generated_text;
+      const last = messages[messages.length - 1];
+      if (last.role !== 'assistant' || !last.content?.trim()) throw Error('Réponse vide.');
+      self.postMessage({answer: last.content.trim()});
+    } catch (error) {
+      self.postMessage({error: error.message || 'Erreur du moteur local.'});
     }
+  };
+}
+function answerQuestion(question) {
+  if (!engine) {
+    const url = URL.createObjectURL(new Blob(['('+workerMain.toString()+')()'], {type:'text/javascript'}));
+    engine = new Worker(url, {type:'module'});
+    URL.revokeObjectURL(url);
+    engine.onmessage = ({data}) => {
+      if (data.status) return status(data.status);
+      if (data.error) pending?.reject(new Error(data.error));
+      else { ready = true; pending?.resolve(data.answer); }
+      pending = null;
+    };
+    engine.onerror = () => {
+      engine.terminate();
+      engine = null;
+      ready = false;
+      pending?.reject(new Error('Chargement du moteur impossible. Vérifie ta connexion et la mémoire disponible.'));
+      pending = null;
+    };
+  }
+  const subject = history.slice(-2).map(turn => turn.content).join(' ') + ' ' + question;
+  let instructions = 'Tu es Mia. Réponds en français, directement et simplement à la dernière question. Tiens compte des échanges précédents. Si tu ignores la réponse, dis-le.';
+  if (/tiktok|pour toi|algorithme/i.test(subject)) instructions += '\nInformations TikTok : '+tiktokContext;
+  const user = {role:'user', content:question};
+  return new Promise((resolve,reject) => {
+    pending = {resolve,reject};
+    engine.postMessage([{role:'system',content:instructions}, ...history.slice(-6), user]);
+  }).then(answer => {
+    history = [...history.slice(-4), user, {role:'assistant',content:answer}];
+    return answer;
   });
-  availability = 'available';
 }
 function addMessage(role, content) {
   byId('welcome').hidden = true;
@@ -264,21 +295,6 @@ function speak(content) {
   };
   speechSynthesis.speak(utterance);
 }
-byId('activate').onclick = async () => {
-  busy = true;
-  refresh();
-  status('Préparation du modèle IA…');
-  try {
-    await startSession();
-    reportAvailability();
-  } catch (error) {
-    console.error(error);
-    status('Téléchargement impossible. Vérifie la connexion et réessaie.');
-  } finally {
-    busy = false;
-    refresh();
-  }
-};
 byId('composer').onsubmit = async event => {
   event.preventDefault();
   const input = byId('message');
@@ -291,15 +307,14 @@ byId('composer').onsubmit = async event => {
   input.value = '';
   status('L’assistant réfléchit…');
   try {
-    if (!session) await startSession();
-    const answer = (await session.prompt(question)).trim();
+    const answer = await answerQuestion(question);
     if (!answer) throw new Error('Réponse vide');
     addMessage('assistant', answer);
     reportAvailability();
     speak(answer);
   } catch (error) {
     console.error(error);
-    status('Réponse impossible. Réessaie ou ouvre une nouvelle conversation.');
+    status('Mia n’a pas pu répondre. ' + error.message);
     if (!input.value) input.value = question;
   } finally {
     busy = false;
@@ -308,8 +323,7 @@ byId('composer').onsubmit = async event => {
 };
 byId('reset').onclick = () => {
   silenceMia();
-  session?.destroy();
-  session = undefined;
+  history = [];
   document.querySelectorAll('.bubble').forEach(bubble => bubble.remove());
   byId('welcome').hidden = false;
   byId('message').value = '';
@@ -375,7 +389,7 @@ if (SpeechRecognition) {
   byId('mic').title = 'Dictée indisponible dans ce navigateur';
 }
 refresh();
-checkModel();
+reportAvailability();
 
 const sources = byId('tiktok-sources');
 for (const {title, source, summary} of tiktokKnowledge) {
