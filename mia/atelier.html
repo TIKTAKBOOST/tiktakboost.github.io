@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier vidéo | Typecast Studio</title>
+<style>
+
+:root{color-scheme:dark;--bg:#101014;--panel:#19191f;--border:#30303a;--ink:#f7f6fc;--muted:#bcb9ca;--accent:#cbff62;font-family:system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 4%,#283128 0,transparent 37%),var(--bg);min-height:100vh}header{min-height:76px;padding:14px clamp(16px,5vw,72px);display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border)}.brand{display:flex;align-items:center;font-weight:900;letter-spacing:-.05em;font-size:1.25rem}.logo{background:var(--accent);color:#171b13;display:grid;place-items:center;width:32px;height:32px;border-radius:9px;margin-right:10px}.accent,em{color:var(--accent)}.edition,.kicker{font-size:.8rem;letter-spacing:.12em;font-weight:750}.edition{margin-left:16px;color:var(--muted)}main{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:clamp(24px,6vw,88px);max-width:1330px;margin:auto;padding:clamp(24px,6vw,80px) clamp(16px,5vw,72px)}aside{padding-top:clamp(12px,4vw,60px)}.kicker{color:var(--accent)}h1{font-weight:850;line-height:.98;letter-spacing:-.085em;font-size:clamp(3rem,6vw,5.7rem);margin:18px 0 24px}em{font-style:normal}p{color:var(--muted);line-height:1.55}aside p{max-width:30ch}.suggestions{display:grid;gap:9px;margin-top:30px}.suggestions button{text-align:left}.studio{background:var(--panel);border:1px solid var(--border);border-radius:22px;min-width:0;display:flex;flex-direction:column;height:600px;box-shadow:0 26px 80px #0005}.bar,.controls{padding:15px 20px}.bar{display:flex;gap:10px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.voice{font-size:.875rem;color:var(--muted);display:flex;align-items:center;gap:6px}input{accent-color:var(--accent)}#conversation{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:13px}#welcome{margin:auto;text-align:center}h2{font-size:clamp(1.3rem,3vw,1.9rem);letter-spacing:-.05em}.orb{display:grid;place-items:center;width:108px;height:108px;border-radius:50%;margin:auto;background:radial-gradient(circle at 42% 34%,#d9ff8e,#a0d449 47%,#283a2e 76%);color:#1e2c1b;font-size:2.15rem;box-shadow:0 0 52px #a6f35340}.bubble{white-space:pre-wrap;overflow-wrap:anywhere;padding:12px 15px;border-radius:14px;line-height:1.55;max-width:94%;background:#292934;align-self:flex-start}.bubble.user{align-self:flex-end;background:#34402a}.bubble strong{display:block;font-size:.85rem;color:var(--accent);margin-bottom:4px}.controls{border-top:1px solid var(--border)}#status{margin:0 0 9px;font-size:.875rem}form{display:flex;gap:8px;align-items:center}button,textarea{font:inherit;color:inherit;border:1px solid #41414d;border-radius:10px;background:#22222b;padding:.65rem .8rem}button{cursor:pointer;font-size:.875rem}button:hover:enabled{border-color:var(--accent)}button:disabled{opacity:.5;cursor:default}button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}#send,#activate{background:var(--accent);color:#182015;border-color:var(--accent);font-weight:750}#activate{margin-bottom:10px}#mic[aria-pressed=true]{background:#5b304b}textarea{width:100%;min-width:0;resize:vertical;max-height:130px;font-size:1rem}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}@media(max-width:720px){main{grid-template-columns:1fr;gap:22px}aside{padding:0}.studio{height:560px}.edition{display:none}.suggestions{margin-top:16px}.bar,.controls{padding:12px}.brand{font-size:1rem}}
+.knowledge{margin-top:20px;border-top:1px solid var(--border);padding-top:15px}.knowledge summary{cursor:pointer;color:var(--accent);font-weight:650}.knowledge a{color:var(--ink)}.knowledge #tiktok-sources{display:grid;gap:12px;padding-top:16px}.knowledge p{margin:.3rem 0 0;max-width:none;font-size:.9rem}
+.nav{color:var(--accent);text-decoration:underline;font-size:.9rem}.editor{grid-template-columns:minmax(0,1fr) minmax(270px,390px);gap:24px}.edit-panel{border:1px solid var(--border);background:var(--panel);border-radius:20px;padding:clamp(14px,3vw,30px);min-width:0}.edit-panel h1{font-size:clamp(2.6rem,5vw,4.5rem);margin-top:0}.generate{display:grid;justify-items:start}.generate textarea{min-height:85px}.edit-panel input[type=file]{display:block;max-width:100%;margin:10px 0}.output canvas,.output video{display:block;width:min(100%,270px);margin:0 auto 14px;border-radius:12px;background:#101014}.output [hidden]{display:none}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.scene{border:1px solid var(--border);border-radius:12px;padding:10px;margin:8px 0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.scene input{font:inherit;width:5rem;background:#22222b;color:inherit;border:1px solid var(--border);padding:4px}.scene strong{width:100%;overflow-wrap:anywhere}.scene button{padding:.35rem .5rem}@media(max-width:720px){.editor{grid-template-columns:1fr}}
+
+footer{text-align:center;padding:18px}footer a{color:var(--accent)}#welcome p{max-width:30ch;margin:10px auto 15px}@media(max-width:720px){main:has(.studio) .studio{grid-row:1;height:65svh;min-height:420px}header{flex-wrap:wrap}}
+
+body{background:radial-gradient(ellipse at 70% 22%,#162f43 0,transparent 48%),radial-gradient(ellipse at 4% 38%,#28203f 0,transparent 52%),#090c14}
+.studio{background:linear-gradient(155deg,#172536,#111421 56%);border-color:#355266;overflow:hidden}
+.avatar{height:130px;flex:none;position:relative;isolation:isolate;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 75%,#1e535d80,transparent 58%);overflow:hidden}
+.halo{width:134px;height:100px;border-radius:50%;border:1px solid #77ffff75;box-shadow:0 0 24px #47f4f630,inset 0 0 18px #47f4f620;transform:rotate(-17deg);position:absolute}
+.head{position:relative;width:85px;height:76px;border-radius:45% 45% 40% 40%;background:linear-gradient(125deg,#e2f9ff,#7995a7 42%,#29384e 80%);box-shadow:inset 1px 2px 4px white,0 6px 18px #030a16;z-index:2;animation:hoverbot 4s ease-in-out infinite}
+.visor{position:absolute;inset:19% 8% 30%;background:linear-gradient(140deg,#182b40,#050c15);border-radius:21px 21px 16px 16px;display:flex;align-items:center;justify-content:space-evenly}
+.visor i{width:12px;height:9px;border-radius:45%;background:#8bffef;box-shadow:0 0 10px #5bffe8;animation:blink 5s infinite}
+.mouth{position:absolute;bottom:15%;left:38%;width:24%;height:3px;border-radius:50%;background:#102431}
+.shoulders{position:absolute;bottom:-21px;width:118px;height:55px;border-radius:55% 55% 0 0;background:linear-gradient(110deg,#a5ceda,#31465a 50%,#7995a7);box-shadow:inset 0 2px 2px #b9fff3}
+.speaking .mouth{animation:talk .24s ease-in-out infinite alternate;background:#072431;box-shadow:0 1px 4px #8affed}
+@keyframes talk{to{height:11px;width:18%;left:41%}}@keyframes hoverbot{50%{transform:translateY(-3px) rotate(2deg)}}@keyframes blink{0%,92%,98%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@media(max-height:740px),(max-width:720px){.avatar{height:96px}.shoulders{bottom:-30px}.studio{min-height:525px}}
+@media(prefers-reduced-motion:reduce){.avatar *{animation:none!important}.speaking .visor{outline:1px solid #8affed}}
+
+.avatar{height:clamp(130px,23vh,210px)}.portrait{height:96%;aspect-ratio:1;position:relative;background:url() center/cover;border-radius:50%;box-shadow:0 0 0 2px #8affe8aa,0 0 36px #58d9ec55}.lips{position:absolute;top:51.8%;left:45%;width:12%;height:0;background:#632e31;border-radius:50%}.speaking .lips{animation:miavoice .26s ease-in-out infinite alternate}@keyframes miavoice{to{height:1.3%}}@media(prefers-reduced-motion:reduce){.speaking .lips{animation:none}}
+
+.portrait{overflow:hidden;animation:mia-breathe 5.3s ease-in-out infinite;transform-origin:50% 80%}.portrait canvas{width:100%;height:100%;display:block}@keyframes mia-breathe{50%{transform:translateY(-1.6px) rotate(.65deg) scale(1.012)}}@media(prefers-reduced-motion:reduce){.portrait{animation:none}}
+
+
+</style>
+</head>
+<body>
+
+
+<header><div class="brand"><span class="logo" aria-hidden="true">✦</span> Typecast<span class="accent"> Studio</span></div><a class="nav" href="index.html">Assistant vocal</a></header>
+<main class="editor">
+<section class="edit-panel">
+<h1>Atelier <em>vidéo.</em></h1>
+<h2>Créer une vidéo animée avec l’IA</h2>
+<form id="generate" class="generate">
+<label for="idea">Ton idée de vidéo</label>
+<textarea id="idea" placeholder="Ex. Trois astuces pour arroser les tomates" maxlength="700" required></textarea>
+<button id="generate-button">Créer les scènes avec Gemini Nano</button>
+</form>
+<p>Gemini Nano écrit les scènes. Le studio les anime sous forme de titres et de textes sur des fonds colorés.</p>
+<h2>Monter tes propres clips</h2>
+<label for="files">Importer des fichiers vidéo</label>
+<input id="files" type="file" accept="video/*" multiple>
+<h2>Scènes du montage</h2>
+<form id="add-title" class="generate">
+<label for="title-text">Ajouter un titre au montage</label>
+<textarea id="title-text" rows="2" maxlength="50" required></textarea>
+<button id="title-button">Ajouter le titre</button>
+</form>
+<div id="timeline"></div>
+</section>
+<section class="edit-panel output">
+<h2>Aperçu et export</h2>
+<canvas id="screen" width="540" height="960" aria-label="Aperçu de la vidéo verticale"></canvas>
+<div class="actions"><button id="preview">Lire l’aperçu</button><button id="export">Exporter la vidéo</button></div>
+<video id="result" controls playsinline hidden></video>
+<a id="download" class="nav" hidden>Télécharger la vidéo</a>
+<p id="feedback" role="status">Ajoute des scènes ou importe tes clips pour commencer.</p>
+</section>
+</main>
+
+
+<script>
+const get = id => document.getElementById(id);
+const canvas = get('screen');
+const ctx = canvas.getContext('2d');
+const timeline = get('timeline');
+const scenes = [];
+let locked = false;
+let resultUrl;
+let audioContext;
+const report = message => { get('feedback').textContent = message; };
+const colors = [['#122722','#caff63'], ['#271a49','#e2b1ff'], ['#122948','#82dcff']];
+
+function drawText(title, caption, index, elapsed) {
+  const [bg, accent] = colors[index % colors.length];
+  const gradient = ctx.createLinearGradient(0, 0, 540, 960);
+  gradient.addColorStop(0, bg);
+  gradient.addColorStop(1, '#101014');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 540, 960);
+  ctx.globalAlpha = .12;
+  ctx.fillStyle = accent;
+  ctx.beginPath();
+  ctx.arc(425, 220 + Math.sin(elapsed) * 90, 190, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.textBaseline = 'top';
+  ctx.fillStyle = accent;
+  ctx.font = 'bold 54px system-ui';
+  const next = wrap(title, 46, 285, 448, 64);
+  ctx.fillStyle = '#fff';
+  ctx.font = '31px system-ui';
+  wrap(caption, 46, next + 26, 448, 42);
+}
+function wrap(value, x, y, width, step) {
+  let line = '';
+  for (const word of value.split(/\s+/)) {
+    const candidate = line ? line + ' ' + word : word;
+    if (line && ctx.measureText(candidate).width > width) {
+      ctx.fillText(line, x, y, width);
+      y += step;
+      line = word;
+    } else {
+      line = candidate;
+    }
+  }
+  ctx.fillText(line, x, y, width);
+  return y + step;
+}
+function renderTimeline() {
+  timeline.replaceChildren();
+  get('preview').disabled = locked || !scenes.length;
+  get('export').disabled = locked || !scenes.length;
+  get('files').disabled = locked;
+  get('title-button').disabled = locked;
+  get('generate-button').disabled = locked;
+  scenes.forEach((scene, index) => {
+    const row = document.createElement('div');
+    row.className = 'scene';
+    const title = document.createElement('strong');
+    title.textContent = scene.title;
+    row.append(title);
+    if (scene.caption) row.append(scene.caption);
+    const fields = scene.video ? [['start', 'Début'], ['end', 'Fin']] : [['end', 'Durée']];
+    for (const [key, name] of fields) {
+      const label = document.createElement('label');
+      label.textContent = name + ' (s) ';
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.step = 'any';
+      input.min = '0';
+      input.value = scene[key];
+      input.disabled = locked;
+      input.onchange = () => {
+        if (Number.isFinite(input.valueAsNumber)) scene[key] = input.valueAsNumber;
+        else input.value = scene[key];
+      };
+      label.append(input);
+      row.append(label);
+    }
+    for (const [name, offset] of [['Monter', -1], ['Descendre', 1], ['Retirer', 0]]) {
+      const button = document.createElement('button');
+      button.textContent = name;
+      button.disabled = locked || index + offset < 0 || index + offset >= scenes.length;
+      button.onclick = () => {
+        scenes.splice(index, 1);
+        if (offset) scenes.splice(index + offset, 0, scene);
+        else if (scene.video) URL.revokeObjectURL(scene.video.src);
+        renderTimeline();
+      };
+      row.append(button);
+    }
+    timeline.append(row);
+  });
+}
+
+get('add-title').onsubmit = event => {
+  event.preventDefault();
+  const input = get('title-text');
+  const title = input.value.trim();
+  if (locked || !title) return;
+  scenes.push({title, caption: '', start: 0, end: 3});
+  input.value = '';
+  renderTimeline();
+  report('Titre ajouté au montage.');
+};
+
+get('generate').onsubmit = async event => {
+  event.preventDefault();
+  const idea = get('idea').value.trim();
+  if (locked || !idea) return;
+  locked = true;
+  renderTimeline();
+  report('Préparation des scènes par l’IA…');
+  let session;
+  try {
+    const model = globalThis.LanguageModel;
+    if (!model) throw new Error('Gemini Nano est indisponible dans ce navigateur. Utilise Chrome à jour sur un ordinateur compatible.');
+    session = await model.create({
+      expectedInputs: [{type: 'text', languages: ['fr']}],
+      expectedOutputs: [{type: 'text', languages: ['fr']}],
+      initialPrompts: [{role: 'system', content: 'Écris de 1 à 5 scènes animées pour une vidéo verticale en français. Réponds uniquement avec un tableau JSON. Chaque objet contient title (titre max 50 caractères), caption (texte à afficher max 130 caractères) et seconds (nombre entre 1 et 15). Respecte si possible la durée totale demandée.'}],
+      monitor(monitor) {
+        monitor.addEventListener('downloadprogress', progress =>
+          report('Téléchargement de Gemini Nano… ' + Math.round(progress.loaded * 100) + ' %'));
+      }
+    });
+    const response = await session.prompt(idea);
+    const data = JSON.parse(response.trim().replace(/^```(?:json)?\s*|\s*```$/gi, ''));
+    if (!Array.isArray(data) || !data.length || data.length > 5 || data.some(item =>
+      !item || typeof item.title !== 'string' || !item.title.trim() || typeof item.caption !== 'string' ||
+      !Number.isFinite(item.seconds) || item.seconds < 1 || item.seconds > 15)) {
+      throw new Error('Le modèle a renvoyé des scènes illisibles. Réessaie avec une idée plus courte.');
+    }
+    scenes.push(...data.map(({title, caption, seconds}) =>
+      ({title: title.slice(0, 50), caption: caption.slice(0, 130), start: 0, end: seconds})));
+    drawText(data[0].title.slice(0, 50), data[0].caption.slice(0, 130), 0, 0);
+    report('Scènes ajoutées au montage.');
+  } catch (error) {
+    report(error instanceof SyntaxError ? 'Le format des scènes est illisible. Réessaie.' : error.message);
+  } finally {
+    session?.destroy();
+    locked = false;
+    renderTimeline();
+  }
+};
+
+get('files').onchange = async event => {
+  if (locked) return;
+  const files = [...event.target.files];
+  if (!files.length) return;
+  locked = true;
+  renderTimeline();
+  report('Lecture des clips…');
+  let rejected = 0;
+  for (const file of files) {
+    const video = document.createElement('video');
+    const url = URL.createObjectURL(file);
+    video.playsInline = true;
+    try {
+      await waitFor(video, 'loadedmetadata', () => { video.src = url; });
+      if (!Number.isFinite(video.duration) || !video.videoWidth) throw new Error('Clip invalide');
+      scenes.push({title: file.name, start: 0, end: video.duration, video});
+    } catch {
+      URL.revokeObjectURL(url);
+      rejected++;
+    }
+  }
+  event.target.value = '';
+  locked = false;
+  renderTimeline();
+  report(rejected ? rejected + ' fichier(s) illisible(s) dans ce navigateur.' : 'Clips ajoutés. Ajuste les coupes ou lis l’aperçu.');
+};
+
+function waitFor(element, name, action) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => finish(new Error('Délai de lecture dépassé.')), 15000);
+    const onSuccess = () => finish();
+    const onError = () => finish(new Error('Ce fichier ne peut pas être lu.'));
+    function finish(error) {
+      clearTimeout(timer);
+      element.removeEventListener(name, onSuccess);
+      element.removeEventListener('error', onError);
+      if (error) reject(error);
+      else resolve();
+    }
+    element.addEventListener(name, onSuccess);
+    element.addEventListener('error', onError);
+    try { action(); } catch (error) { finish(error); }
+  });
+}
+function drawClip(video) {
+  const scale = Math.min(canvas.width / video.videoWidth, canvas.height / video.videoHeight);
+  const width = video.videoWidth * scale;
+  const height = video.videoHeight * scale;
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(video, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height);
+}
+async function playScene(scene, index, destination) {
+  const {video, start, end, title, caption} = scene;
+  if (video && video.currentTime !== start) {
+    await waitFor(video, 'seeked', () => { video.currentTime = start; });
+  }
+  if (video && video.readyState < 2) {
+    await waitFor(video, 'loadeddata', () => {});
+  }
+  if (video) {
+    scene.audio ??= audioContext.createMediaElementSource(video);
+    scene.audio.connect(destination);
+  }
+  try {
+    if (video) await video.play();
+    const began = performance.now();
+    await new Promise((resolve, reject) => {
+      function frame(now) {
+        try {
+          const elapsed = (now - began) / 1000;
+          if (video) drawClip(video);
+          else drawText(title, caption, index, elapsed);
+          if (video ? video.ended || video.currentTime >= end : elapsed >= end) resolve();
+          else if (elapsed > end - start + 10) reject(new Error('La lecture du clip s’est interrompue.'));
+          else requestAnimationFrame(frame);
+        } catch (error) {
+          reject(error);
+        }
+      }
+      requestAnimationFrame(frame);
+    });
+  } finally {
+    if (video) {
+      video.pause();
+      scene.audio.disconnect(destination);
+    }
+  }
+}
+
+async function play(exporting) {
+  if (locked || !scenes.length) return;
+  if (scenes.some(({start, end, video}) => start < 0 || end <= start || (video && end > video.duration))) {
+    report('Vérifie les coupes : la fin doit suivre le début et rester dans la durée du clip.');
+    return;
+  }
+  locked = true;
+  renderTimeline();
+  report(exporting ? 'Export en cours. Garde cet onglet ouvert.' : 'Lecture du montage…');
+  let stream;
+  let recorder;
+  let mix;
+  try {
+    audioContext ??= new AudioContext();
+    await audioContext.resume();
+    mix = exporting ? audioContext.createMediaStreamDestination() : null;
+    let complete;
+    if (exporting) {
+      stream = canvas.captureStream(30);
+      if (scenes.some(scene => scene.video)) stream.addTrack(mix.stream.getAudioTracks()[0]);
+      const mimeType = ['video/mp4', 'video/webm;codecs=vp8,opus', 'video/webm'].find(type =>
+        MediaRecorder.isTypeSupported(type));
+      recorder = mimeType ? new MediaRecorder(stream, {mimeType}) : new MediaRecorder(stream);
+      const chunks = [];
+      recorder.ondataavailable = event => { if (event.data.size) chunks.push(event.data); };
+      complete = new Promise(resolve => {
+        recorder.onstop = () => resolve(new Blob(chunks, {type: recorder.mimeType}));
+        recorder.onerror = () => resolve(null);
+      });
+      recorder.start();
+    }
+    for (const [index, scene] of scenes.entries()) {
+      await playScene(scene, index, mix ?? audioContext.destination);
+    }
+    if (recorder) {
+      if (recorder.state !== 'inactive') recorder.stop();
+      const blob = await complete;
+      if (!blob?.size) throw new Error('Le navigateur n’a pas produit de fichier vidéo.');
+      if (resultUrl) URL.revokeObjectURL(resultUrl);
+      resultUrl = URL.createObjectURL(blob);
+      get('result').src = resultUrl;
+      get('result').hidden = false;
+      const download = get('download');
+      download.href = resultUrl;
+      download.download = blob.type.startsWith('video/mp4') ? 'tiktakboost.mp4' : 'tiktakboost.webm';
+      download.hidden = false;
+    }
+    report(exporting ? 'Vidéo prête à télécharger.' : 'Aperçu terminé.');
+  } catch (error) {
+    report(error.message);
+  } finally {
+    if (recorder && recorder.state !== 'inactive') recorder.stop();
+    stream?.getTracks().forEach(track => track.stop());
+    mix?.stream.getTracks().forEach(track => track.stop());
+    locked = false;
+    renderTimeline();
+  }
+}
+get('preview').onclick = () => play(false);
+get('export').onclick = () => play(true);
+drawText('Atelier vidéo', '', 0, 0);
+renderTimeline();
+
+
+</script>
+</body>
+</html>
